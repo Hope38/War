@@ -6,7 +6,6 @@ const VALUES = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"] //the numb
 export default class Deck {
     constructor(cards = freshDeck()) {
         // the cards in the deck
-        // the cards in the deck
         this.cards = cards
 }
     get NumberOfCards() {
@@ -44,7 +43,6 @@ function freshDeck() {
     //Loop through all the symbols
     return SYMBOLS.flatMap(symbols => {
     
-        //Loop through all the values
         //Loop through all the values
         return VALUES.map(value => {
             //Return the array
