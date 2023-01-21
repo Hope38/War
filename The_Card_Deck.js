@@ -4,6 +4,7 @@ const VALUES = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"]
 
 export default class Deck {
     constructor(cards = freshDeck()) {
+        // the cards in the deck
         this.cards = cards
     
 }
@@ -23,14 +24,18 @@ export default class Deck {
 
 class Card {
     constructor(symbols, value) {
+        //the individual cards
         this.symbols = symbols
         this.value = value
     }
 }
-
+//A brand new deck of cards
 function freshDeck() {
+    //Loop through all the symbols
     return SYMBOLS.flatMap(symbols => {
+        //Loop through all the values
         return VALUES.map(value => {
+            //Return the array
             return new Card(symbols, value)
         })
     })
