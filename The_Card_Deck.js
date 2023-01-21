@@ -8,15 +8,20 @@ export default class Deck {
         // the cards in the deck
         // the cards in the deck
         this.cards = cards
-    
 }
     get NumberOfCards() {
         return this.cards.length
     }
-
+    
+    //shuffles the cards
     shuffle() {
+        //Goes from the back of the cards to the front
        for (let i = this.NumberOfCards - 1; i > 0; i--){
+       
+           //Get the new index for where you're going to put the card
            const newIndex = Math.floor(Math.random()*(i+1))
+           
+           //flip the values from the new index with the current index
            const oldValue = this.cards[newIndex]
            this.cards[newIndex] = this.cards[i]
            this.cards[i] = oldValue
@@ -38,6 +43,7 @@ class Card {
 function freshDeck() {
     //Loop through all the symbols
     return SYMBOLS.flatMap(symbols => {
+    
         //Loop through all the values
         //Loop through all the values
         return VALUES.map(value => {
