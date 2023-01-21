@@ -1,4 +1,4 @@
-import Deck from "./The_Card_Deck"
+import Deck from "./The_Card_Deck.js"
 
 const deck = new Deck()
 deck.shuffle()
