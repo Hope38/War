@@ -1,0 +1,33 @@
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+body {
+    margin:0;
+    display: grid;
+    justify-content:center;
+}
+
+.deck {
+    height: 100%;
+    width: 100%;
+    border: 1px solid black;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.computer-deck{
+    background-color: blueviolet;
+}
+
+.player-deck{
+    background-color: green;
+}
+
+.text {
+    grid-column: span 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

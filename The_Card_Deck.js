@@ -3,7 +3,7 @@ const SYMBOLS = ["♠","♥","♦","♣"] //The symbols on the cards
 const VALUES = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"] //the numbers on the cards
 
 
-export default class Deck {
+ class Deck {
     constructor(cards = freshDeck()) {
         // the cards in the deck
         this.cards = cards
