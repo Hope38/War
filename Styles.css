@@ -34,6 +34,6 @@ body {
     align-items: center;
 }
 
-.PickGame {
+.PickGame body{
     justify-content: center;
 }
