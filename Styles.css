@@ -5,16 +5,18 @@
 body {
     margin:0;
     display: grid;
+    grid-template-columns: repeat(2, 4rem);
+    grid-template-rows: 7rem 2rem 7rem;
     justify-content:center;
+    padding-top: 1rem;
+    cursor: pointer;
+    gap: .5rem;
 }
 
 .deck {
     height: 100%;
     width: 100%;
     border: 1px solid black;
-    justify-content: center;
-    align-items: center;
-    color: white;
 }
 
 .computer-deck{
