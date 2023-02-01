@@ -36,17 +36,18 @@ class Card {
         this.value = value
     }
 
-get color() {
-    return this.symbols === '♣' || this.symbols === '♠' ? 'black' : 'red'
-}
+    get color() {
+        return this.symbols === '♣' || this.symbols === '♠' ? 'black' : 'red'
+    }
 
-//Dynamically render a card
-function getHTML(){
-        const cardDiv = document.create('div')
+    //Dynamically render a card
+    getHTML(){
+        const cardDiv = document.createElement('div')
+        //for the text inside the card
         cardDiv.innerText = this.symbols
 
         //for the class atribute in the div
-        cardDiv.classlist.add("card", this.color)
+        cardDiv.classList.add("card", this.color)
 
         //for the data attribute in the div
         cardDiv.dataset.value = '${this.value} ${this.symbols}'
