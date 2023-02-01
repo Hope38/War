@@ -35,8 +35,25 @@ class Card {
         this.symbols = symbols
         this.value = value
     }
+
+get color() {
+    return this.symbols === '♣' || this.symbols === '♠' ? 'black' : 'red'
 }
 
+//Dynamically render a card
+function getHTML(){
+        const cardDiv = document.create('div')
+        cardDiv.innerText = this.symbols
+
+        //for the class atribute in the div
+        cardDiv.classlist.add("card", this.color)
+
+        //for the data attribute in the div
+        cardDiv.dataset.value = '${this.value} ${this.symbols}'
+        //Get access to that html
+        return cardDiv
+    }
+}
 
 //A brand new deck of cards
 function freshDeck() {
