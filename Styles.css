@@ -3,7 +3,7 @@
 }
 
 body {
-    margin:0;
+    margin: 0;
     display: grid;
     grid-template-columns: repeat(2, 4rem);
     grid-template-rows: 7rem 2rem 7rem;
@@ -22,7 +22,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size:3rem;
+    font-size: 3rem;
     border-radius: .5rem;
     color:white;
     user-select: none;
@@ -64,7 +64,8 @@ body {
     color:black;
 }
 
-.card::before, .card::after{
+.card::before, 
+.card::after {
     position: absolute;
     content: attr(data-value);
     font-size: 1rem;
@@ -72,7 +73,7 @@ body {
 
 .card::before {
     top: .5rem;
-    left: .5rem;
+    left: .5rem
 
 }
 
