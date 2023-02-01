@@ -60,6 +60,10 @@ body {
     color:red;
 }
 
+.card.black {
+    color:black;
+}
+
 .card::before, .card::after{
     position: absolute;
     content: attr(data-value);
