@@ -3,7 +3,7 @@ const SYMBOLS = ["♠","♥","♦","♣"] //The symbols on the cards
 const VALUES = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"] //the numbers on the cards
 
 
- class Deck {
+ export default class Deck {
     constructor(cards = freshDeck()) {
         // the cards in the deck
         this.cards = cards
@@ -18,7 +18,7 @@ const VALUES = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"] //the numb
        for (let i = this.NumberOfCards - 1; i > 0; i--){
        
            //Get the new index for where you're going to put the card
-           const newIndex = Math.floor(Math.random()*(i+1))
+           const newIndex = Math.floor(Math.random() * (i + 1))
            
            //flip the values from the new index with the current index
            const oldValue = this.cards[newIndex]
