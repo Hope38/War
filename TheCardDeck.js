@@ -11,6 +11,16 @@ const VALUES = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"] //the numb
     get NumberOfCards() {
         return this.cards.length
     }
+
+    //returns the top card from the deck
+    pop(){
+        return this.cards.shift()
+    }
+
+    //adds a card to the bottom of the deck
+    push(card) {
+        this.cards.push(card)
+    }
     
     //shuffles the cards
     shuffle() {
@@ -36,12 +46,13 @@ class Card {
         this.value = value
     }
 
+    //if a card has a ♠ or ♣ then it will be black, if not then it is red
     get color() {
         return this.symbols === '♣' || this.symbols === '♠' ? 'black' : 'red'
     }
 
     //Dynamically render a card
-    getHTML(){
+    getHTML() {
         const cardDiv = document.createElement('div')
         //for the text inside the card
         cardDiv.innerText = this.symbols
@@ -50,7 +61,7 @@ class Card {
         cardDiv.classList.add("card", this.color)
 
         //for the data attribute in the div
-        cardDiv.dataset.value = '${this.value} ${this.symbols}'
+        cardDiv.dataset.value = `${this.value} ${this.symbols}`
         //Get access to that html
         return cardDiv
     }
