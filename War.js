@@ -95,6 +95,8 @@ function flipCards() {
         //if the player loses then the card is given to the computer
         computerDeck.push(playerCard)
         computerDeck.push(computerCard)
+
+        //if the cards are the same then nothing will happen
     }else {
         text.innerText = "Draw"
         playerDeck.push(playerCard)
@@ -125,6 +127,7 @@ function isRoundWinner(cardOne, cardTwo){
     return CARD_VALUE_MAP[cardOne.value] > CARD_VALUE_MAP[cardTwo.value]
 }
 
-function isGameOver{
-
+//the game will be over when someones cards hit zero
+function isGameOver(deck){
+    return deck.NumberOfCards === 0
 }
