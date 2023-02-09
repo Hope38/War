@@ -1,4 +1,4 @@
-import Deck from "./TheCardDeck.js"
+import Deck from "./ThreePlayerDecks"
 
 //will convert the Q,K,J,A into numbers
 const CARD_VALUE_MAP = {
@@ -23,10 +23,10 @@ const computerDeckElement = document.querySelector('.computer-deck')
 const playerDeckElement = document.querySelector('.player-deck')
 const text = document.querySelector('.text')
 
-const playerWarElement = document.querySelector('.player-Junk')
-const computerWarElement = document.querySelector('.computer-Junk')
+const computerjunkElement = document.querySelector('.computer-Junk')
+const playerJunkElement = document.querySelector('.player-Junk')
 
-let playerDeck, computerDeck, inRound, stop, playerDiscard, computerDiscard
+let playerDeck, computerDeck, inRound, stop
 
 //if you click anywhere on the screen the function will run
 document.addEventListener('click', () => {
@@ -34,14 +34,13 @@ document.addEventListener('click', () => {
         startGame()
         return
     }
+
     if(inRound){
         //if the round is starting then clean it up
         cleanBeforeRound()
     } else {
         //otherwise flip a card when you click the screen
-        //flipCards()
-        playerDiscard.push(playerDeck.pop)
-        updateDeckCount()
+        flipCards()
     }
 })
 
@@ -57,11 +56,6 @@ function startGame(){
     playerDeck = new Deck(deck.cards.slice(0, deckMidpoint))
     //the computers deck
     computerDeck = new Deck(deck.cards.slice(deckMidpoint, deck.NumberOfCards))
-
-    playerDiscard = new Deck()
-
-    computerDiscard = new Deck()
-
     inRound = false
     stop = false
 
@@ -87,6 +81,8 @@ function flipCards() {
 
     const playerCard = playerDeck.pop()
     const computerCard = computerDeck.pop()
+    const playerCardJunk = 
+
     //renders the cards
     playerCardSlot.appendChild(playerCard.getHTML())
     computerCardSlot.appendChild(computerCard.getHTML())
@@ -99,6 +95,7 @@ function flipCards() {
         //if the player wins then the card will return to them
         playerDeck.push(playerCard)
         playerDeck.push(computerCard)
+      
         
     } else if (isRoundWinner(computerCard, playerCard)){
         text.innerText = "lose"
@@ -108,10 +105,12 @@ function flipCards() {
         computerDeck.push(computerCard)
        
         //if the cards are the same then nothing will happen
-    }else if (War(playerCard, computerCard)){
+    }else {
         text.innerText = "Draw"
+        playerDeck.push(playerCard)
+        computerDeck.push(computerCard)
+        
     }
-  
 
     //if player runs out of cards then this will display
     if (isGameOver(playerDeck)){
@@ -130,6 +129,7 @@ function flipCards() {
 function updateDeckCount(){
     computerDeckElement.innerText = computerDeck.NumberOfCards
     playerDeckElement.innerText = playerDeck.NumberOfCards
+
 }
 
 //Will determine who wins, will detemine which card is worth more
@@ -137,14 +137,7 @@ function isRoundWinner(cardOne, cardTwo){
     return CARD_VALUE_MAP[cardOne.value] > CARD_VALUE_MAP[cardTwo.value]
 }
 
-function War(cardOne, cardTwo){
-    return CARD_VALUE_MAP[cardOne.value] = CARD_VALUE_MAP[cardTwo.value]
-}
-
 //the game will be over when someones cards hit zero
 function isGameOver(deck){
     return deck.NumberOfCards === 0
 }
-
-
-
