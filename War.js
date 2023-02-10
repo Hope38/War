@@ -23,8 +23,8 @@ const computerDeckElement = document.querySelector('.computer-deck')
 const playerDeckElement = document.querySelector('.player-deck')
 const text = document.querySelector('.text')
 
-const playerWarElement = document.querySelector('.player-Junk')
-const computerWarElement = document.querySelector('.computer-Junk')
+const playerDiscardDeckElement = document.querySelector('.player-Junk')
+const computerDiscardDeckElement = document.querySelector('.computer-Junk')
 
 let playerDeck, computerDeck, inRound, stop, playerDiscard, computerDiscard
 
@@ -39,9 +39,9 @@ document.addEventListener('click', () => {
         cleanBeforeRound()
     } else {
         //otherwise flip a card when you click the screen
-        //flipCards()
-        playerDiscard.push(playerDeck.pop)
-        updateDeckCount()
+        flipCards()
+        
+        
     }
 })
 
@@ -58,9 +58,9 @@ function startGame(){
     //the computers deck
     computerDeck = new Deck(deck.cards.slice(deckMidpoint, deck.NumberOfCards))
 
-    playerDiscard = new Deck()
+    playerDiscard = new Deck(deck.cards.slice(0,0))
 
-    computerDiscard = new Deck()
+    computerDiscard = new Deck(deck.cards.slice(0,0))
 
     inRound = false
     stop = false
@@ -106,11 +106,17 @@ function flipCards() {
         //if the player loses then the card is given to the computer
         computerDeck.push(playerCard)
         computerDeck.push(computerCard)
-       
-        //if the cards are the same then nothing will happen
-    }else if (War(playerCard, computerCard)){
+    } else{
         text.innerText = "Draw"
+        computerDiscard.push(computerCard)
+        computerDiscard.push(computerCard)
+        computerDiscard.push(computerCard)
+        playerDiscard.push(playerCard)
+        playerDiscard.push(playerCard)
+        playerDiscard.push(playerCard)
+        playerDeck.push(playerDiscard)
     }
+    
   
 
     //if player runs out of cards then this will display
@@ -130,6 +136,8 @@ function flipCards() {
 function updateDeckCount(){
     computerDeckElement.innerText = computerDeck.NumberOfCards
     playerDeckElement.innerText = playerDeck.NumberOfCards
+    computerDiscardDeckElement.innerText = computerDiscard.NumberOfCards
+    playerDiscardDeckElement.innerText = playerDiscard.NumberOfCards
 }
 
 //Will determine who wins, will detemine which card is worth more
