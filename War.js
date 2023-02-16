@@ -128,12 +128,9 @@ function flipCards() {
 }
 
 function War(){
+    //gives you the first card
     const playerCard = playerDeck.pop()
     const computerCard = computerDeck.pop()
-
-
-    //const playerDiscard = playerDeck.pop()
-    //const computerDiscard = computerDeck()
 
     updateDeckCount()
 
@@ -146,10 +143,15 @@ function War(){
         computerDiscard.push(computerDeck)
         computerDiscard.push(computerDeck)
         computerDiscard.push(computerDeck)
-     } else if ((playerDiscard.NumberOfCards >= 3 && text.innerText === "Win")){
+     } 
+     
+     
+     if (playerDiscard.NumberOfCards >= 3 || text.innerText === "Win"){
         playerDeck.push(playerDiscard)
         playerDeck.push(computerDiscard)
-     } else if ((computerDiscard.NumberOfCards >= 3 && text.innerText === "lose")){
+     } 
+
+     if (computerDiscard.NumberOfCards >= 3 || text.innerText === "lose"){
         computerDeck.push(computerDiscard)
         computerDeck.push(playerDiscard)
     }
