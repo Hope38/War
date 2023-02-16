@@ -40,6 +40,8 @@ document.addEventListener('click', () => {
     } else {
         //otherwise flip a card when you click the screen
         flipCards()
+       // War()
+        //updateDeckCount()
         
         
     }
@@ -85,8 +87,10 @@ function cleanBeforeRound(){
 function flipCards() {
     inRound = true
 
+    //gives you the first card
     const playerCard = playerDeck.pop()
     const computerCard = computerDeck.pop()
+    
     //renders the cards
     playerCardSlot.appendChild(playerCard.getHTML())
     computerCardSlot.appendChild(computerCard.getHTML())
@@ -100,24 +104,15 @@ function flipCards() {
         playerDeck.push(playerCard)
         playerDeck.push(computerCard)
         
-    } else if (isRoundWinner(computerCard, playerCard)){
+    } else if (isRoundWinner(computerCard, playerCard)) {
         text.innerText = "lose"
         
         //if the player loses then the card is given to the computer
         computerDeck.push(playerCard)
         computerDeck.push(computerCard)
-    } else{
-        text.innerText = "Draw"
-        computerDiscard.push(computerCard)
-        computerDiscard.push(computerCard)
-        computerDiscard.push(computerCard)
-        playerDiscard.push(playerCard)
-        playerDiscard.push(playerCard)
-        playerDiscard.push(playerCard)
-        playerDeck.push(playerDiscard)
+    } else {
+        return War()
     }
-    
-  
 
     //if player runs out of cards then this will display
     if (isGameOver(playerDeck)){
@@ -132,6 +127,40 @@ function flipCards() {
     }
 }
 
+function War(){
+    const playerCard = playerDeck.pop()
+    const computerCard = computerDeck.pop()
+
+
+    //const playerDiscard = playerDeck.pop()
+    //const computerDiscard = computerDeck()
+
+    updateDeckCount()
+
+     if (DrawWar(playerCard, computerCard)){
+        text.innerText = "Draw"
+        //well take three cards from both the player deck and the computer deck and put it into the discard pile
+        playerDiscard.push(playerDeck)
+        playerDiscard.push(playerDeck)
+        playerDiscard.push(playerDeck)
+        computerDiscard.push(computerDeck)
+        computerDiscard.push(computerDeck)
+        computerDiscard.push(computerDeck)
+     } else if ((playerDiscard.NumberOfCards >= 3 && text.innerText === "Win")){
+        playerDeck.push(playerDiscard)
+        playerDeck.push(computerDiscard)
+     } else if ((computerDiscard.NumberOfCards >= 3 && text.innerText === "lose")){
+        computerDeck.push(computerDiscard)
+        computerDeck.push(playerDiscard)
+    }
+     
+
+}
+
+
+
+
+
 //updates the deck count
 function updateDeckCount(){
     computerDeckElement.innerText = computerDeck.NumberOfCards
@@ -145,7 +174,7 @@ function isRoundWinner(cardOne, cardTwo){
     return CARD_VALUE_MAP[cardOne.value] > CARD_VALUE_MAP[cardTwo.value]
 }
 
-function War(cardOne, cardTwo){
+function DrawWar(cardOne, cardTwo){
     return CARD_VALUE_MAP[cardOne.value] = CARD_VALUE_MAP[cardTwo.value]
 }
 
