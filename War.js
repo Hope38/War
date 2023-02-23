@@ -104,8 +104,8 @@ function flipCards() {
 function updateDeckCount(){
     computerDeckElement.innerText = computerDeck.NumberOfCards
     playerDeckElement.innerText = playerDeck.NumberOfCards
-    computerDiscardDeckElement.innerText = computerDiscard.NumberOfCards
-    playerDiscardDeckElement.innerText = playerDiscard.NumberOfCards
+    //computerDiscardDeckElement.innerText = computerDiscard.NumberOfCards
+   // playerDiscardDeckElement.innerText = playerDiscard.NumberOfCards
 }
 
 //Will determine who wins, will detemine which card is worth more
@@ -138,54 +138,59 @@ function warToArray(){
     const playerCard = playerDeck.pop()
     const computerCard = computerDeck.pop()
 
+
+
     const playerArray = new Array()
     const compArray = new Array()
+
+    playerDiscardDeckElement.innerText = 3
+    computerDiscardDeckElement.innerText = 3
 
     playerArray.push(playerDeck.cards.slice(0,3))
     compArray.push(playerDeck.cards.slice(0,3))
     playerDiscard.push(playerArray)
-    computerDiscard.push(compArray)
+   computerDiscard.push(compArray)
+    console.log(playerDiscard)
+
+    if (playerDiscardDeckElement.innerText = 3){
+        compareWar(playerCard, computerCard)
+    }
 
 
-    compareWar(playerCard, computerCard)
-   
 }
+
 
 function compareWar(player, computer){
-    if(playerDiscard.NumberOfCards == 1 && (player) > (computer)) {
-        console.log(playerDiscard)
-		//updates result section of the game board
-		text.innerText = "player wins war"
-		
-		
-		//pushes both current cards (War cards) to back of the player's hand
-		playerDeck.push(playerDiscard);
-		playerDeck.push(computerDiscard);
-		
-        //update card count and check for a winner
-		updateDeckCount()
-		isGameOver(playerDeck, computerDeck)
-	}
-    //if computer's War card value is greater than the player's War card value, computer wins the tie
-	else if (playerDiscard.NumberOfCards === 1 && (player) < (computer)) {
-		console.log(playerDiscard)
-		//update result section of the game board
-		text.innerText = "computer wins war"
-		//pushes both current cards (War cards) to the back of the computer's hand
-		computerDeck.push(playerDiscard);
-		computerDeck.push(computerDiscard);
+    if (CARD_VALUE_MAP[player.value] > CARD_VALUE_MAP[computer.value]){
+        text.innerText = "win"
+        playerDeck.push(playerDiscard)
+        playerDeck.push(computerDiscard)
+
+        console.log(playerDeck)
         
-		
-		
-		//update card count and check for a winner
-		updateDeckCount();
-		isGameOver(playerDeck, computerDeck);
-	}
-    //if player's War card value is the same as the computer's War card value, call for another war
-    else if (playerDiscard.NumberOfCards === 1 & (player) === (computer)){
-		war();
+       playerDiscardDeckElement.innerText = 0
+       computerDiscardDeckElement.innerText = 0
+       stop=true
+ 
+    } else if (CARD_VALUE_MAP[player.value] < CARD_VALUE_MAP[computer.value]){
+        text.innerText = "lose"
+        computerDeck.push(playerDiscard)
+        computerDeck.push(computerDiscard)
+        
+        console.log(computerDeck)
+        playerDiscardDeckElement.innerText = 0
+       computerDiscardDeckElement.innerText = 0
+        stop=true
+        
+    } else if(CARD_VALUE_MAP[player.value] = CARD_VALUE_MAP[computer.value]){
+        text.innerText = "Draw"
+        war()
+    }
+        isGameOver(playerDeck, computerDeck)
+        updateDeckCount()
 }
-}
+
+
 
 
 //the game will be over when someones cards hit zero
