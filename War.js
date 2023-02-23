@@ -42,7 +42,7 @@ document.addEventListener('click', () => {
     } else {
         //otherwise flip a card when you click the screen
         flipCards()
-        //war()
+        warToArray()
     }
 })
 
@@ -137,17 +137,23 @@ function war(){
 function warToArray(){
     const playerCard = playerDeck.pop()
     const computerCard = computerDeck.pop()
-    
-    computerDiscard.push(computerCard, computerCard, computerCard)
-    playerDiscard.push(playerCard)
 
-    updateDeckCount() 
-    compareWar(playerDeck[0], computerDeck[0])
+    const playerArray = new Array()
+    const compArray = new Array()
+
+    playerArray.push(playerDeck.cards.slice(0,3))
+    compArray.push(playerDeck.cards.slice(0,3))
+    playerDiscard.push(playerArray)
+    computerDiscard.push(compArray)
+
+
+    compareWar(playerCard, computerCard)
+   
 }
 
 function compareWar(player, computer){
-    if((player) > (computer)) {
-      
+    if(playerDiscard.NumberOfCards == 1 && (player) > (computer)) {
+        console.log(playerDiscard)
 		//updates result section of the game board
 		text.innerText = "player wins war"
 		
@@ -155,18 +161,14 @@ function compareWar(player, computer){
 		//pushes both current cards (War cards) to back of the player's hand
 		playerDeck.push(playerDiscard);
 		playerDeck.push(computerDiscard);
-
-        if (playerDiscard.NumberOfCards === 3){
-            stop = true
-        }
 		
         //update card count and check for a winner
 		updateDeckCount()
 		isGameOver(playerDeck, computerDeck)
 	}
     //if computer's War card value is greater than the player's War card value, computer wins the tie
-	else if (playerDiscard.NumberOfCards === 3 & (player) < (computer)) {
-		
+	else if (playerDiscard.NumberOfCards === 1 && (player) < (computer)) {
+		console.log(playerDiscard)
 		//update result section of the game board
 		text.innerText = "computer wins war"
 		//pushes both current cards (War cards) to the back of the computer's hand
@@ -174,16 +176,13 @@ function compareWar(player, computer){
 		computerDeck.push(computerDiscard);
         
 		
-		//resets the war array to empty
-		if (computerDiscard.NumberOfCards === 3){
-            stop = true
-        }
+		
 		//update card count and check for a winner
 		updateDeckCount();
 		isGameOver(playerDeck, computerDeck);
 	}
     //if player's War card value is the same as the computer's War card value, call for another war
-    else if (playerDiscard.NumberOfCards === 3 & (player) === (computer)){
+    else if (playerDiscard.NumberOfCards === 1 & (player) === (computer)){
 		war();
 }
 }
