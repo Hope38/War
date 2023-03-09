@@ -14,7 +14,7 @@ const CARD_VALUE_MAP = {
     "J":11,
     "Q":12,
     "K":13,
-    "A":14,
+    "A":14
 }
 
 const computerCardSlot = document.querySelector('.computer-card-slot')
@@ -42,7 +42,7 @@ document.addEventListener('click', () => {
     } else {
         //otherwise flip a card when you click the screen
         flipCards()
-       warToArray()
+    warToArray()
     }
 })
 
@@ -104,8 +104,8 @@ function flipCards() {
 function updateDeckCount(){
     computerDeckElement.innerText = computerDeck.NumberOfCards
     playerDeckElement.innerText = playerDeck.NumberOfCards
-    computerDiscardDeckElement.innerText = computerDiscard.NumberOfCards
-    playerDiscardDeckElement.innerText = playerDiscard.NumberOfCards
+    computerDiscardDeckElement.innerText = computerDiscard.length
+    playerDiscardDeckElement.innerText = playerDiscard.length
 }
 
 //Will determine who wins, will detemine which card is worth more
@@ -135,39 +135,36 @@ function war(){
 }
 
 function warToArray(){
-    const playerArray = []
-    const compArray = []
-   playerDiscard.push(playerArray)
-   computerDiscard.push(compArray)
-   const playerCard = playerDeck.pop()
+    playerDiscard = []
+    computerDiscard = []
+    const playerCard = playerDeck.pop()
     const computerCard = computerDeck.pop()
+  
 
-    
-   compArray.push(computerDeck.pop(),computerDeck.pop(),computerDeck.pop())
-   playerArray.push(playerDeck.pop(),playerDeck.pop(),playerDeck.pop())
 
- 
-   updateDeckCount()
+   computerDiscard.push(computerDeck.pop(),computerDeck.pop(), computerDeck.pop())
+   playerDiscard.push(playerDeck.pop(), playerDeck.pop(), playerDeck.pop())
+
    compareWar(playerCard, computerCard)
 
    //console.log(playerDeck)
   //console.log(computerDeck)
-   //console.log(playerDiscard)
-  //console.log(computerDiscard)
+  //console.log(playerArray)
+  //console.log(compArray)
+   console.log(playerDiscard)
+  console.log(computerDiscard)
 }
 
 
 function compareWar(player, computer){
     if (CARD_VALUE_MAP[player.value] > CARD_VALUE_MAP[computer.value]){
         text.innerText = "You win War"
-        playerDeck.push(playerDiscard.pop())
-        playerDeck.push(computerDiscard.pop())
-
-
+        playerDeck.push(playerDiscard.pop(),playerDiscard.pop(), playerDiscard.pop() )
+        playerDeck.push(computerDiscard.pop(),computerDiscard.pop(),computerDiscard.pop())
     } else if (CARD_VALUE_MAP[player.value] < CARD_VALUE_MAP[computer.value]){
         text.innerText = "You lose War"
-        computerDeck.push(playerDiscard.pop())
-        computerDeck.push(computerDiscard.pop())   
+        computerDeck.push(playerDiscard.pop(),playerDiscard.pop(),playerDiscard.pop())
+        computerDeck.push(computerDiscard.pop(),computerDiscard.pop(),computerDiscard.pop())   
     } else{
         text.innerText = "Another War"
         war()
@@ -185,7 +182,7 @@ function isGameOver(player, computer){
     if (player.NumberOfCards === 0){
         text.innerText = "the computer wins"
         stop = true
-    } else if (computer === 0){
+    } else if (computer.NumberOfCards === 0){
         text.innerText = "the player wins"
         stop = true
     }

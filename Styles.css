@@ -6,16 +6,17 @@ body {
     margin: 0;
     display: grid;
     grid-template-columns: repeat(2, 4rem);
-    grid-template-rows: 7rem 2rem 7rem;
-    gap: .5rem;
+    grid-template-rows: 7rem 3rem 9rem;
+    gap: .8rem;
     cursor: pointer;
     justify-content:center;
-    padding-top: 1rem;
+    padding-top: 4rem;
     
     
 }
 
 .deck {
+    position: relative;
     height: 100%;
     width: 100%;
     border: 1px solid black;
@@ -38,10 +39,12 @@ body {
 
 .computer-Junk{
     background-color: rgb(122, 48, 192);
+   
 }
 
 .player-Junk{
     background-color: green;
+    
 }
 
 .text {
@@ -69,19 +72,23 @@ body {
 }
 
 .card.black {
+
     color:black;
 }
 
 .card::before, 
 .card::after {
+    /* Puts the values on the top and bottom of the card */
     position: absolute;
+
+    /*  Displays the values on the cards */
     content: attr(data-value);
     font-size: 1rem;
 }
 
 .card::before {
     top: .5rem;
-    left: .5rem
+    left: .5rem;
 
 }
 
