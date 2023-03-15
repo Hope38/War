@@ -135,36 +135,40 @@ function war(){
 }
 
 function warToArray(){
-    playerDiscard = []
-    computerDiscard = []
+    const playerDiscard = []
+    const computerDiscard = []
     const playerCard = playerDeck.pop()
     const computerCard = computerDeck.pop()
-  
 
-
-   computerDiscard.push(computerDeck.pop(),computerDeck.pop(), computerDeck.pop())
+   computerDiscard.push(computerDeck.pop(), computerDeck.pop(), computerDeck.pop())
+   
    playerDiscard.push(playerDeck.pop(), playerDeck.pop(), playerDeck.pop())
+   
+    
+   if (playerDeck.NumberOfCards <= 3){
+       isGameOver(playerDeck, computerDeck)
+   } else if (computerDeck.NumberOfCards <= 3){
+      isGameOver(playerDeck, computerDeck)
+   }
+   updateDeckCount()
 
    compareWar(playerCard, computerCard)
-
-   //console.log(playerDeck)
+ 
+  
+  //console.log(computerDiscard)
+//console.log(playerDeck)
   //console.log(computerDeck)
-  //console.log(playerArray)
-  //console.log(compArray)
-   console.log(playerDiscard)
-  console.log(computerDiscard)
 }
-
 
 function compareWar(player, computer){
     if (CARD_VALUE_MAP[player.value] > CARD_VALUE_MAP[computer.value]){
         text.innerText = "You win War"
-        playerDeck.push(playerDiscard.pop(),playerDiscard.pop(), playerDiscard.pop() )
-        playerDeck.push(computerDiscard.pop(),computerDiscard.pop(),computerDiscard.pop())
+        playerDeck.push(playerDiscard)
+        playerDeck.push(computerDiscard)
     } else if (CARD_VALUE_MAP[player.value] < CARD_VALUE_MAP[computer.value]){
         text.innerText = "You lose War"
-        computerDeck.push(playerDiscard.pop(),playerDiscard.pop(),playerDiscard.pop())
-        computerDeck.push(computerDiscard.pop(),computerDiscard.pop(),computerDiscard.pop())   
+        computerDeck.push(playerDiscard)
+        computerDeck.push(computerDiscard)   
     } else{
         text.innerText = "Another War"
         war()
