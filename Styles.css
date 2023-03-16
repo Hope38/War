@@ -39,12 +39,10 @@ body {
 
 .computer-Junk{
     background-color: rgb(122, 48, 192);
-   
 }
 
 .player-Junk{
-    background-color: green;
-    
+    background-color: green; 
 }
 
 .text {
@@ -64,7 +62,6 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 4rem;
-
 }
 
 .card.red {
@@ -72,7 +69,6 @@ body {
 }
 
 .card.black {
-
     color:black;
 }
 
