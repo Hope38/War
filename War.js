@@ -100,20 +100,20 @@ function flipCards() {
 function updateDeckCount(){
     computerDeckElement.innerText = computerDeck.NumberOfCards
     playerDeckElement.innerText = playerDeck.NumberOfCards
-    computerDiscardDeckElement.innerText = computerDiscard.length
-    playerDiscardDeckElement.innerText = playerDiscard.length
+    computerDiscardDeckElement.innerText = computerDiscard.NumberOfCards
+    playerDiscardDeckElement.innerText = playerDiscard.NumberOfCards
 }
 
 //Will determine who wins, will detemine which card is worth more
 function isRoundWinner(player, computer){
     if (CARD_VALUE_MAP[player.value] > CARD_VALUE_MAP[computer.value]){
         text.innerText = "win"
-        playerDeck.push(player)
-        playerDeck.push(computer)
+        playerDeck.mypush(player)
+        playerDeck.mypush(computer)
     } else if (CARD_VALUE_MAP[player.value] < CARD_VALUE_MAP[computer.value]){
         text.innerText = "lose"
-        computerDeck.push(player)
-        computerDeck.push(computer)
+        computerDeck.mypush(player)
+        computerDeck.mypush(computer)
     } else if(CARD_VALUE_MAP[player.value] = CARD_VALUE_MAP[computer.value]){
         text.innerText = "Draw"
         war()
@@ -127,14 +127,13 @@ function war(){
 }
 
 function warToArray(){
-    const playerDiscard = []
-    const computerDiscard = []
     const playerCard = playerDeck.pop()
     const computerCard = computerDeck.pop()
 
-    computerDiscard.push(computerDeck.pop(), computerDeck.pop(), computerDeck.pop())
+    computerDiscard.mypush(computerDeck.pop(), computerDeck.pop(), computerDeck.pop())
+    
    
-    playerDiscard.push(playerDeck.pop(), playerDeck.pop(), playerDeck.pop())
+    playerDiscard.mypush(playerDeck.pop(), playerDeck.pop(), playerDeck.pop())
    
     
     if (playerDeck.NumberOfCards <= 3){
@@ -145,20 +144,21 @@ function warToArray(){
         
     updateDeckCount()
     compareWar(playerCard, computerCard)
-    //console.log(computerDiscard)
-    //console.log(playerDeck)
+    console.log(computerDiscard)
+    console.log(playerDiscard)
+  // console.log(playerDeck)
      //console.log(computerDeck)
 }
 
 function compareWar(player, computer){
     if (CARD_VALUE_MAP[player.value] > CARD_VALUE_MAP[computer.value]){
         text.innerText = "You win War"
-        playerDeck.push(playerDiscard)
-        playerDeck.push(computerDiscard)
+        playerDeck.mypush(playerDiscard)
+        playerDeck.mypush(computerDiscard)
     } else if (CARD_VALUE_MAP[player.value] < CARD_VALUE_MAP[computer.value]){
         text.innerText = "You lose War"
-        computerDeck.push(playerDiscard)
-        computerDeck.push(computerDiscard)   
+        computerDeck.mypush(playerDiscard)
+        computerDeck.mypush(computerDiscard)   
     } else{
         text.innerText = "Another War"
         war()
