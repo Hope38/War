@@ -22,13 +22,10 @@ const playerCardSlot = document.querySelector('.player-card-slot')
 const computerDeckElement = document.querySelector('.computer-deck')
 const playerDeckElement = document.querySelector('.player-deck')
 const text = document.querySelector('.text')
-
 const playerDiscardDeckElement = document.querySelector('.player-Junk')
 const computerDiscardDeckElement = document.querySelector('.computer-Junk')
 
-
 let playerDeck, computerDeck, inRound, stop, playerDiscard, computerDiscard
-
 
 //if you click anywhere on the screen the function will run
 document.addEventListener('click', () => {
@@ -62,14 +59,13 @@ function startGame(){
 
     playerDiscard = new Deck(deck.cards.slice(0,0))
 
-    computerDiscard = new Deck(deck.cards.slice(0, 0))
+    computerDiscard = new Deck(deck.cards.slice(0,0))
 
     inRound = false
     stop = false
 
     //calls the function
     cleanBeforeRound()
-
 }
 
 //Creates a default state
@@ -78,7 +74,7 @@ function cleanBeforeRound(){
     computerCardSlot.innerHTML = ""
     playerCardSlot.innerHTML = ""
     text.innerText = ""
-    
+
     //calls the function
     updateDeckCount()
 }
@@ -114,13 +110,10 @@ function isRoundWinner(player, computer){
         text.innerText = "win"
         playerDeck.push(player)
         playerDeck.push(computer)
- 
     } else if (CARD_VALUE_MAP[player.value] < CARD_VALUE_MAP[computer.value]){
         text.innerText = "lose"
         computerDeck.push(player)
         computerDeck.push(computer)
-
-        
     } else if(CARD_VALUE_MAP[player.value] = CARD_VALUE_MAP[computer.value]){
         text.innerText = "Draw"
         war()
@@ -131,7 +124,6 @@ function isRoundWinner(player, computer){
 
 function war(){
     warToArray()
-    
 }
 
 function warToArray(){
@@ -140,24 +132,22 @@ function warToArray(){
     const playerCard = playerDeck.pop()
     const computerCard = computerDeck.pop()
 
-   computerDiscard.push(computerDeck.pop(), computerDeck.pop(), computerDeck.pop())
+    computerDiscard.push(computerDeck.pop(), computerDeck.pop(), computerDeck.pop())
    
-   playerDiscard.push(playerDeck.pop(), playerDeck.pop(), playerDeck.pop())
+    playerDiscard.push(playerDeck.pop(), playerDeck.pop(), playerDeck.pop())
    
     
-   if (playerDeck.NumberOfCards <= 3){
-       isGameOver(playerDeck, computerDeck)
-   } else if (computerDeck.NumberOfCards <= 3){
-      isGameOver(playerDeck, computerDeck)
-   }
-   updateDeckCount()
-
-   compareWar(playerCard, computerCard)
- 
-  
-  //console.log(computerDiscard)
-//console.log(playerDeck)
-  //console.log(computerDeck)
+    if (playerDeck.NumberOfCards <= 3){
+        isGameOver(playerDeck, computerDeck)
+    } else if (computerDeck.NumberOfCards <= 3){
+        isGameOver(playerDeck, computerDeck)
+    }
+        
+    updateDeckCount()
+    compareWar(playerCard, computerCard)
+    //console.log(computerDiscard)
+    //console.log(playerDeck)
+     //console.log(computerDeck)
 }
 
 function compareWar(player, computer){
@@ -176,9 +166,6 @@ function compareWar(player, computer){
         isGameOver(playerDeck, computerDeck)
         updateDeckCount()
 }
-
-
-
 
 //the game will be over when someones cards hit zero
 function isGameOver(player, computer){
