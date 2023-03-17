@@ -122,7 +122,9 @@ function isRoundWinner(player, computer){
         updateDeckCount();
 }
 
-function war(){
+function war(){ 
+    const playerCard = playerDeck.pop();
+    const computerCard = computerDeck.pop();
     if (playerDeck.NumberOfCards < 4) {
         isGameOver(playerDeck, computerDeck);
       } else if (computerDeck.NumberOfCards < 4){
@@ -136,33 +138,39 @@ function war(){
       computerDiscard.mypush(computerDeck.pop());
       computerDiscard.mypush(computerDeck.pop());
     
-    updateDeckCount();      
-    compareWar()
+    updateDeckCount();   
+    compareWar(playerCard, computerCard);
    // console.log(computerDiscard)
     //console.log(playerDiscard)
   // console.log(playerDeck)
      //console.log(computerDeck)
 }
 
-function compareWar(){
-    const playerCard = playerDeck.pop();
-    const computerCard = computerDeck.pop();
-    if (CARD_VALUE_MAP[playerCard.value] > CARD_VALUE_MAP[computerCard.value]){
+function compareWar(player, computer){
+    if (CARD_VALUE_MAP[player.value] > CARD_VALUE_MAP[computer.value]){
         text.innerText = "You win War";
-        playerDeck.mypush(playerDiscard);
+        playerDeck.mypush(playerDiscard)
+        playerDeck.mypush(playerDiscard)
+        playerDeck.mypush(playerDiscard)
         playerDeck.mypush(computerDiscard);
-    } else if (CARD_VALUE_MAP[playerCard.value] < CARD_VALUE_MAP[computerCard.value]){
+        playerDeck.mypush(computerDiscard);
+        playerDeck.mypush(computerDiscard);    
+    } else if (CARD_VALUE_MAP[player.value] < CARD_VALUE_MAP[computer.value]){
         text.innerText = "You lose War";
         computerDeck.mypush(playerDiscard);
+        computerDeck.mypush(playerDiscard);
+        computerDeck.mypush(playerDiscard);
         computerDeck.mypush(computerDiscard);   
+        computerDeck.mypush(computerDiscard);  
+        computerDeck.mypush(computerDiscard);  
     } else{
         text.innerText = "Another War";
         war();
     }
-        isGameOver(playerDeck, computerDeck);
-         console.log(computerDiscard)
-    console.log(playerDiscard)
-        updateDeckCount();
+    isGameOver(playerDeck, computerDeck);
+     //console.log(computerDiscard)
+    //console.log(playerDiscard)
+    updateDeckCount();
 }
 
 //the game will be over when someones cards hit zero
