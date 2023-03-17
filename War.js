@@ -40,7 +40,7 @@ document.addEventListener('click', () => {
     } else {
         //otherwise flip a card when you click the screen
         flipCards();
-        war();
+       war();
     }
 })
 
@@ -134,14 +134,17 @@ function war(){
       playerDiscard.mypush(playerDeck.pop());
       playerDiscard.mypush(playerDeck.pop());
       playerDiscard.mypush(playerDeck.pop());
+       
       computerDiscard.mypush(computerDeck.pop());
       computerDiscard.mypush(computerDeck.pop());
       computerDiscard.mypush(computerDeck.pop());
-    
-    updateDeckCount();   
+        
+    console.log(computerDiscard);
+   console.log(playerDiscard);
+   
+    updateDeckCount(); 
     compareWar(playerCard, computerCard);
-    //console.log(computerDiscard)
-    //console.log(playerDiscard)
+    
   // console.log(playerDeck)
      //console.log(computerDeck)
 }
@@ -158,9 +161,9 @@ function compareWar(player, computer){
         playerDeck.mypush(computerDiscard.pop());
         playerDeck.mypush(computerDiscard.pop());
         // add cards from player's discard pile to player's deck
-        playerDeck.mypush(playerDiscard.cards);
+        //playerDeck.mypush(playerDiscard.cards);
         // add cards from computer's discard pile to player's deck
-        playerDeck.mypush(computerDiscard.cards);
+        //playerDeck.mypush(computerDiscard.cards);
     } else if (CARD_VALUE_MAP[player.value] < CARD_VALUE_MAP[computer.value]){
         text.innerText = "You lose War";
         computerDeck.mypush(player);
@@ -172,19 +175,16 @@ function compareWar(player, computer){
         computerDeck.mypush(computerDiscard.pop());
         computerDeck.mypush(computerDiscard.pop());
         // add cards from player's discard pile to computer's deck
-        computerDeck.mypush(playerDiscard.cards);
+        //computerDeck.mypush(playerDiscard.cards);
        
         // add cards from computer's discard pile to computer's deck
-        computerDeck.mypush(computerDiscard.cards);
+        //computerDeck.mypush(computerDiscard.cards);
         
     } else {
         text.innerText = "War again!";
         war();
     }
 }
-
-    
-
 
 //the game will be over when someones cards hit zero
 function isGameOver(player, computer){
