@@ -1,4 +1,4 @@
-import Deck from "./TheCardDeck.js"
+import Deck from "./TheCardDeck.js";
 
 //will convert the Q,K,J,A into numbers
 const CARD_VALUE_MAP = {
@@ -15,167 +15,165 @@ const CARD_VALUE_MAP = {
     "Q":12,
     "K":13,
     "A":14
-}
+};
 
-const computerCardSlot = document.querySelector('.computer-card-slot')
-const playerCardSlot = document.querySelector('.player-card-slot')
-const computerDeckElement = document.querySelector('.computer-deck')
-const playerDeckElement = document.querySelector('.player-deck')
-const text = document.querySelector('.text')
-const playerDiscardDeckElement = document.querySelector('.player-Junk')
-const computerDiscardDeckElement = document.querySelector('.computer-Junk')
+const computerCardSlot = document.querySelector('.computer-card-slot');
+const playerCardSlot = document.querySelector('.player-card-slot');
+const computerDeckElement = document.querySelector('.computer-deck');
+const playerDeckElement = document.querySelector('.player-deck');
+const text = document.querySelector('.text');
+const playerDiscardDeckElement = document.querySelector('.player-Junk');
+const computerDiscardDeckElement = document.querySelector('.computer-Junk');
 
-let playerDeck, computerDeck, inRound, stop, playerDiscard, computerDiscard
+let playerDeck, computerDeck, inRound, stop, playerDiscard, computerDiscard;
 
 //if you click anywhere on the screen the function will run
 document.addEventListener('click', () => {
     if(stop) {
-        startGame()
-        return
+        startGame();
+        return;
     }
+
     if(inRound){
         //if the round is starting then clean it up
-        cleanBeforeRound()
+        cleanBeforeRound();
     } else {
         //otherwise flip a card when you click the screen
-        flipCards()
-    warToArray()
+        flipCards();
+        war();
     }
 })
 
 //The actual game
-startGame()
+startGame();
+
 function startGame(){
-    const deck = new Deck()
-    deck.shuffle()
+    const deck = new Deck();
+    deck.shuffle();
     
     //splits it into equal pile of cards
-    const deckMidpoint = Math.ceil(deck.NumberOfCards / 2)
+    const deckMidpoint = Math.ceil(deck.NumberOfCards / 2);
     
     //the players deck - This splits the cards
-    playerDeck = new Deck(deck.cards.slice(0, deckMidpoint))
+    playerDeck = new Deck(deck.cards.slice(0, deckMidpoint));
     //the computers deck
-    computerDeck = new Deck(deck.cards.slice(deckMidpoint, deck.NumberOfCards))
+    computerDeck = new Deck(deck.cards.slice(deckMidpoint, deck.NumberOfCards));
 
-    playerDiscard = new Deck(deck.cards.slice(0,0))
-
-    computerDiscard = new Deck(deck.cards.slice(0,0))
-
-    inRound = false
-    stop = false
+    playerDiscard = new Deck([]);
+    computerDiscard = new Deck([]);
+    inRound = false;
+    stop = false;
 
     //calls the function
-    cleanBeforeRound()
+    cleanBeforeRound();
 }
 
 //Creates a default state
 function cleanBeforeRound(){
-    inRound = false
-    computerCardSlot.innerHTML = ""
-    playerCardSlot.innerHTML = ""
-    text.innerText = ""
+    inRound = false;
+    computerCardSlot.innerHTML = "";
+    playerCardSlot.innerHTML = "";
+    text.innerText = "";
 
     //calls the function
-    updateDeckCount()
+    updateDeckCount();
 }
 
 //changes the cards within the round
 function flipCards() {
-    inRound = true
+    inRound = true;
 
-    updateDeckCount()
+    updateDeckCount();
 
     //gives you the first card
-    const playerCard = playerDeck.pop()
-    const computerCard = computerDeck.pop()
+    const playerCard = playerDeck.pop();
+    const computerCard = computerDeck.pop();
     
     //renders the cards
-    playerCardSlot.appendChild(playerCard.getHTML())
-    computerCardSlot.appendChild(computerCard.getHTML())
+    playerCardSlot.appendChild(playerCard.getHTML());
+    computerCardSlot.appendChild(computerCard.getHTML());
 
-    isRoundWinner(playerCard, computerCard)
+    isRoundWinner(playerCard, computerCard);
 }
 
 //updates the deck count
 function updateDeckCount(){
-    computerDeckElement.innerText = computerDeck.NumberOfCards
-    playerDeckElement.innerText = playerDeck.NumberOfCards
-    computerDiscardDeckElement.innerText = computerDiscard.NumberOfCards
-    playerDiscardDeckElement.innerText = playerDiscard.NumberOfCards
+    computerDeckElement.innerText = computerDeck.NumberOfCards;
+    playerDeckElement.innerText = playerDeck.NumberOfCards;
+    computerDiscardDeckElement.innerText = computerDiscard.NumberOfCards;
+    playerDiscardDeckElement.innerText = playerDiscard.NumberOfCards;
 }
 
 //Will determine who wins, will detemine which card is worth more
 function isRoundWinner(player, computer){
     if (CARD_VALUE_MAP[player.value] > CARD_VALUE_MAP[computer.value]){
-        text.innerText = "win"
-        playerDeck.mypush(player)
-        playerDeck.mypush(computer)
+        text.innerText = "win";
+        playerDeck.mypush(player);
+        playerDeck.mypush(computer);
     } else if (CARD_VALUE_MAP[player.value] < CARD_VALUE_MAP[computer.value]){
-        text.innerText = "lose"
-        computerDeck.mypush(player)
-        computerDeck.mypush(computer)
+        text.innerText = "lose";
+        computerDeck.mypush(player);
+        computerDeck.mypush(computer);
     } else if(CARD_VALUE_MAP[player.value] = CARD_VALUE_MAP[computer.value]){
-        text.innerText = "Draw"
-        war()
+        text.innerText = "Draw";
+        war();
     }
-        isGameOver(playerDeck, computerDeck)
-        updateDeckCount()
+        isGameOver(playerDeck, computerDeck);
+        updateDeckCount();
 }
 
 function war(){
-    warToArray()
-}
+    if (playerDeck.NumberOfCards < 4) {
+        isGameOver(playerDeck, computerDeck);
+      } else if (computerDeck.NumberOfCards < 4){
+        isGameOver(playerDeck, computerDeck);
+      }
 
-function warToArray(){
-    const playerCard = playerDeck.pop()
-    const computerCard = computerDeck.pop()
-
-    computerDiscard.mypush(computerDeck.pop(), computerDeck.pop(), computerDeck.pop())
+      playerDiscard.mypush(playerDeck.pop());
+      playerDiscard.mypush(playerDeck.pop());
+      playerDiscard.mypush(playerDeck.pop());
+      computerDiscard.mypush(computerDeck.pop());
+      computerDiscard.mypush(computerDeck.pop());
+      computerDiscard.mypush(computerDeck.pop());
     
-   
-    playerDiscard.mypush(playerDeck.pop(), playerDeck.pop(), playerDeck.pop())
-   
-    
-    if (playerDeck.NumberOfCards <= 3){
-        isGameOver(playerDeck, computerDeck)
-    } else if (computerDeck.NumberOfCards <= 3){
-        isGameOver(playerDeck, computerDeck)
-    }
-        
-    updateDeckCount()
-    compareWar(playerCard, computerCard)
-    console.log(computerDiscard)
-    console.log(playerDiscard)
+    updateDeckCount();      
+    compareWar()
+   // console.log(computerDiscard)
+    //console.log(playerDiscard)
   // console.log(playerDeck)
      //console.log(computerDeck)
 }
 
-function compareWar(player, computer){
-    if (CARD_VALUE_MAP[player.value] > CARD_VALUE_MAP[computer.value]){
-        text.innerText = "You win War"
-        playerDeck.mypush(playerDiscard)
-        playerDeck.mypush(computerDiscard)
-    } else if (CARD_VALUE_MAP[player.value] < CARD_VALUE_MAP[computer.value]){
-        text.innerText = "You lose War"
-        computerDeck.mypush(playerDiscard)
-        computerDeck.mypush(computerDiscard)   
+function compareWar(){
+    const playerCard = playerDeck.pop();
+    const computerCard = computerDeck.pop();
+    if (CARD_VALUE_MAP[playerCard.value] > CARD_VALUE_MAP[computerCard.value]){
+        text.innerText = "You win War";
+        playerDeck.mypush(playerDiscard);
+        playerDeck.mypush(computerDiscard);
+    } else if (CARD_VALUE_MAP[playerCard.value] < CARD_VALUE_MAP[computerCard.value]){
+        text.innerText = "You lose War";
+        computerDeck.mypush(playerDiscard);
+        computerDeck.mypush(computerDiscard);   
     } else{
-        text.innerText = "Another War"
-        war()
+        text.innerText = "Another War";
+        war();
     }
-        isGameOver(playerDeck, computerDeck)
-        updateDeckCount()
+        isGameOver(playerDeck, computerDeck);
+         console.log(computerDiscard)
+    console.log(playerDiscard)
+        updateDeckCount();
 }
 
 //the game will be over when someones cards hit zero
 function isGameOver(player, computer){
      //if player runs out of cards then this will display
     if (player.NumberOfCards === 0){
-        text.innerText = "the computer wins"
-        stop = true
+        text.innerText = "the computer wins";
+        stop = true;
     } else if (computer.NumberOfCards === 0){
-        text.innerText = "the player wins"
-        stop = true
+        text.innerText = "the player wins";
+        stop = true;
     }
 }
 
