@@ -40,7 +40,7 @@ document.addEventListener('click', () => {
     } else {
         //otherwise flip a card when you click the screen
         flipCards();
-       war();
+        //war();
     }
 })
 
@@ -139,13 +139,13 @@ function war(){
       computerDiscard.mypush(computerDeck.pop());
       computerDiscard.mypush(computerDeck.pop());
         
-    console.log(computerDiscard);
-   console.log(playerDiscard);
+     //console.log(computerDiscard);
+     //console.log(playerDiscard);
    
-    updateDeckCount(); 
-    compareWar(playerCard, computerCard);
+     updateDeckCount(); 
+     compareWar(playerCard, computerCard);
     
-  // console.log(playerDeck)
+     //console.log(playerDeck)
      //console.log(computerDeck)
 }
 
