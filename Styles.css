@@ -6,12 +6,12 @@
 body {
     margin: 0;
     display: grid;
-    grid-template-columns: repeat(3, 4.2rem);
+    grid-template-columns: repeat(3, 5rem);
     grid-template-rows: 6rem 3rem 6rem 6rem 3rem 5rem;
     gap: .9rem;
     cursor: pointer;
     justify-content:center;
-    padding-top: 4rem;
+    padding-top: 10rem;
     background-color: antiquewhite;
 }
 
