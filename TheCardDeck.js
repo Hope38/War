@@ -52,7 +52,7 @@ class Card {
     }
 
     //Dynamically render a card
-    getHTML() {
+     getHTML() {
         const cardDiv = document.createElement('div')
         //for the text inside the card
         cardDiv.innerText = this.symbols

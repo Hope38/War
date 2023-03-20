@@ -40,7 +40,7 @@ document.addEventListener('click', () => {
     } else {
         //otherwise flip a card when you click the screen
         flipCards();
-        //war();
+        war();
     }
 })
 
@@ -125,31 +125,33 @@ function isRoundWinner(player, computer){
 function war(){ 
     const playerCard = playerDeck.pop();
     const computerCard = computerDeck.pop();
+
     if (playerDeck.NumberOfCards < 4) {
         isGameOver(playerDeck, computerDeck);
       } else if (computerDeck.NumberOfCards < 4){
         isGameOver(playerDeck, computerDeck);
-      }
-
-      playerDiscard.mypush(playerDeck.pop());
-      playerDiscard.mypush(playerDeck.pop());
-      playerDiscard.mypush(playerDeck.pop());
+      } else {
+        //Adds three cards to the players discard pile
+        playerDiscard.mypush(playerDeck.pop());
+        playerDiscard.mypush(playerDeck.pop());
+        playerDiscard.mypush(playerDeck.pop());
        
-      computerDiscard.mypush(computerDeck.pop());
-      computerDiscard.mypush(computerDeck.pop());
-      computerDiscard.mypush(computerDeck.pop());
-        
-     //console.log(computerDiscard);
-     //console.log(playerDiscard);
-   
-     updateDeckCount(); 
-     compareWar(playerCard, computerCard);
-    
+        //Adds three cards to the computers discard pile
+        computerDiscard.mypush(computerDeck.pop());
+        computerDiscard.mypush(computerDeck.pop());
+        computerDiscard.mypush(computerDeck.pop());
+        updateDeckCount(); 
+         
+      }
+     
+      updateDeckCount(); 
+    compareWar(playerCard, computerCard);
      //console.log(playerDeck)
      //console.log(computerDeck)
 }
 
 function compareWar(player, computer){
+     
     if (CARD_VALUE_MAP[player.value] > CARD_VALUE_MAP[computer.value]){
         text.innerText = "You win War";
         playerDeck.mypush(player);
@@ -161,9 +163,9 @@ function compareWar(player, computer){
         playerDeck.mypush(computerDiscard.pop());
         playerDeck.mypush(computerDiscard.pop());
         // add cards from player's discard pile to player's deck
-        //playerDeck.mypush(playerDiscard.cards);
+        playerDeck.mypush(playerDiscard.cards);
         // add cards from computer's discard pile to player's deck
-        //playerDeck.mypush(computerDiscard.cards);
+        playerDeck.mypush(computerDiscard.cards);
     } else if (CARD_VALUE_MAP[player.value] < CARD_VALUE_MAP[computer.value]){
         text.innerText = "You lose War";
         computerDeck.mypush(player);
