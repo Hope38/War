@@ -6,13 +6,12 @@
 body {
     margin: 0;
     display: grid;
-    grid-template-columns: repeat(2, 4.2rem);
-    grid-template-rows: 6rem 3rem 6rem 6rem 3rem;
-    gap: .8rem;
+    grid-template-columns: repeat(3, 4.2rem);
+    grid-template-rows: 6rem 3rem 6rem 6rem 3rem 5rem;
+    gap: .9rem;
     cursor: pointer;
     justify-content:center;
     padding-top: 4rem;
-    padding-bottom: 2rem;
     background-color: antiquewhite;
 }
 
@@ -31,19 +30,19 @@ body {
 }
 
 .computer-deck{
-    background-color: rgb(122, 48, 192);
+    background-color: rgb(230, 10, 57);
 }
 
 .player-deck{
-    background-color: green;
+    background-color: rgb(2, 8, 2);
 }
 
 .computer-Junk{
-    background-color: rgb(122, 48, 192);
+    background-color: rgb(230, 10, 57);
 }
 
 .player-Junk{
-    background-color: green; 
+    background-color: rgb(2, 8, 2); 
 }
 
 .text {
