@@ -40,7 +40,7 @@ document.addEventListener('click', () => {
     } else {
         //otherwise flip a card when you click the screen
         flipCards();
-        war();
+        //war();
     }
 })
 
@@ -92,7 +92,7 @@ function flipCards() {
     //renders the cards
     playerCardSlot.appendChild(playerCard.getHTML());
     computerCardSlot.appendChild(computerCard.getHTML());
-
+    
     isRoundWinner(playerCard, computerCard);
 }
 
@@ -120,7 +120,7 @@ function isRoundWinner(player, computer){
     } else if(CARD_VALUE_MAP[player.value] = CARD_VALUE_MAP[computer.value]){
         //initiates war
         text.innerText = "Draw";
-        war();
+        return war();
     }
         isGameOver(playerDeck, computerDeck);
         updateDeckCount();
@@ -142,6 +142,7 @@ function war(){
         playerDiscard.mypush(playerDeck.pop());
         playerDiscard.mypush(playerDeck.pop());
         playerDiscard.mypush(playerDeck.pop());
+        
        
         //Adds three cards to the computers discard pile
         computerDiscard.mypush(computerDeck.pop());
@@ -154,7 +155,7 @@ function war(){
       if (playerDeck.NumberOfCards === 2){
         playerDiscard.mypush(playerDeck.pop());
       } else if (computerDeck.NumberOfCards === 2){
-        playerDiscard.mypush(playerDeck.pop());
+        playerDiscard.mypush(playerDeck.pop());   
       }
 
       if(playerDeck.NumberOfCards === 1){
@@ -163,6 +164,7 @@ function war(){
         compareWar(playerCard,computerCard)
       }
 
+    updateDeckCount()
     compareWar(playerCard, computerCard);
 }
 
@@ -176,11 +178,12 @@ function compareWar(player, computer){
         playerDeck.mypush(playerDiscard.pop());
         playerDeck.mypush(playerDiscard.pop());
         playerDeck.mypush(playerDiscard.pop());
-
+    
         playerDeck.mypush(computerDiscard.pop());
         playerDeck.mypush(computerDiscard.pop());
         playerDeck.mypush(computerDiscard.pop());
-    } else if (CARD_VALUE_MAP[player.value] < CARD_VALUE_MAP[computer.value]){
+        
+     } else if(CARD_VALUE_MAP[player.value] < CARD_VALUE_MAP[computer.value]){
         text.innerText = "You lose War";
         //Adds the card that was played to the computers deck
         computerDeck.mypush(player);
@@ -192,11 +195,13 @@ function compareWar(player, computer){
 
         computerDeck.mypush(computerDiscard.pop());
         computerDeck.mypush(computerDiscard.pop());
-        computerDeck.mypush(computerDiscard.pop());
+        computerDeck.mypush(computerDiscard.pop()); 
     } else {
         text.innerText = "War again!";
-        war();
+        return war();
     }
+
+    
     isGameOver(player, computer)
 }
 
