@@ -40,7 +40,7 @@ document.addEventListener('click', () => {
     } else {
         //otherwise flip a card when you click the screen
         flipCards();
-        //war();
+        war();
     }
 })
 
@@ -143,7 +143,6 @@ function war(){
         playerDiscard.mypush(playerDeck.pop());
         playerDiscard.mypush(playerDeck.pop());
         
-       
         //Adds three cards to the computers discard pile
         computerDiscard.mypush(computerDeck.pop());
         computerDiscard.mypush(computerDeck.pop());
@@ -152,16 +151,24 @@ function war(){
         updateDeckCount();   
       }
 
+      //if the player or computer has only two cards then it will put one card into the discard pile
       if (playerDeck.NumberOfCards === 2){
         playerDiscard.mypush(playerDeck.pop());
       } else if (computerDeck.NumberOfCards === 2){
-        playerDiscard.mypush(playerDeck.pop());   
+        computerDiscard.mypush(computerDeck.pop());   
       }
 
+      //if the player or computer has only 1 cards then it will just draw that one to compare
       if(playerDeck.NumberOfCards === 1){
         compareWar(playerCard,computerCard)
       } else if (computerDeck.NumberOfCards === 1){
         compareWar(playerCard,computerCard)
+      }
+
+      if(playerDeck.NumberOfCards === 0){
+        isGameOver(playerDeck, computerDeck);
+      } else if (computerDeck.NumberOfCards === 0){
+        isGameOver(playerDeck, computerDeck);
       }
 
     updateDeckCount()
@@ -182,7 +189,6 @@ function compareWar(player, computer){
         playerDeck.mypush(computerDiscard.pop());
         playerDeck.mypush(computerDiscard.pop());
         playerDeck.mypush(computerDiscard.pop());
-        
      } else if(CARD_VALUE_MAP[player.value] < CARD_VALUE_MAP[computer.value]){
         text.innerText = "You lose War";
         //Adds the card that was played to the computers deck
@@ -200,9 +206,7 @@ function compareWar(player, computer){
         text.innerText = "War again!";
         return war();
     }
-
-    
-    isGameOver(player, computer)
+    isGameOver(playerDeck, computerDeck)
 }
 
 //the game will be over when someones cards hit zero
