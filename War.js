@@ -171,7 +171,7 @@ function war(){
         isGameOver(playerDeck, computerDeck);
       }
 
-    updateDeckCount()
+    updateDeckCount();
     compareWar(playerCard, computerCard);
 }
 
@@ -204,6 +204,7 @@ function compareWar(player, computer){
         computerDeck.mypush(computerDiscard.pop()); 
     } else {
         text.innerText = "War again!";
+        updateDeckCount();
         return war();
     }
     isGameOver(playerDeck, computerDeck)
