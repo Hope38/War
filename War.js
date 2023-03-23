@@ -165,6 +165,7 @@ function war(){
         compareWar(playerCard,computerCard)
       }
 
+    //if you have zero cards to play for war then it will be game over
       if(playerDeck.NumberOfCards === 0){
         isGameOver(playerDeck, computerDeck);
       } else if (computerDeck.NumberOfCards === 0){
@@ -204,7 +205,6 @@ function compareWar(player, computer){
         computerDeck.mypush(computerDiscard.pop()); 
     } else {
         text.innerText = "War again!";
-        updateDeckCount();
         return war();
     }
     isGameOver(playerDeck, computerDeck)
