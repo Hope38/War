@@ -40,7 +40,7 @@ document.addEventListener('click', () => {
     } else {
         //otherwise flip a card when you click the screen
         flipCards();
-        war();
+        //war();
     }
 })
 
@@ -117,7 +117,7 @@ function isRoundWinner(player, computer){
         //Adds the card that was played to the computers deck
         computerDeck.mypush(player);
         computerDeck.mypush(computer);
-    } else if(CARD_VALUE_MAP[player.value] = CARD_VALUE_MAP[computer.value]){
+    } else if(CARD_VALUE_MAP[player.value] == CARD_VALUE_MAP[computer.value]){
         //initiates war
         text.innerText = "Draw";
         return war();
@@ -195,7 +195,7 @@ function compareWar(player, computer){
         //Adds the card that was played to the computers deck
         computerDeck.mypush(player);
         computerDeck.mypush(computer);
-         //Adds the discard piles cards into the computers Deck
+        //Adds the discard piles cards into the computers Deck
         computerDeck.mypush(playerDiscard.pop());
         computerDeck.mypush(playerDiscard.pop());
         computerDeck.mypush(playerDiscard.pop());
@@ -207,6 +207,7 @@ function compareWar(player, computer){
         text.innerText = "War again!";
         return war();
     }
+
     isGameOver(playerDeck, computerDeck)
 }
 
