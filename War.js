@@ -25,7 +25,7 @@ const text = document.querySelector('.text');
 const playerDiscardDeckElement = document.querySelector('.player-Junk');
 const computerDiscardDeckElement = document.querySelector('.computer-Junk');
 
-let playerDeck, computerDeck, inRound, stop, playerDiscard, computerDiscard;
+let playerDeck, computerDeck, inRound, stop, playerDiscard, computerDiscard,cards;
 
 //if you click anywhere on the screen the function will run
 document.addEventListener('click', () => {
@@ -40,7 +40,7 @@ document.addEventListener('click', () => {
     } else {
         //otherwise flip a card when you click the screen
         flipCards();
-        //war();
+        war();
     }
 })
 
@@ -182,14 +182,32 @@ function compareWar(player, computer){
         //Adds the card that was played to the players deck
         playerDeck.mypush(player);
         playerDeck.mypush(computer);
+       
         //Adds the discard piles cards into the players Deck
         playerDeck.mypush(playerDiscard.pop());
         playerDeck.mypush(playerDiscard.pop());
         playerDeck.mypush(playerDiscard.pop());
+        //playerDeck.mypush(playerDiscard.pop());
     
         playerDeck.mypush(computerDiscard.pop());
         playerDeck.mypush(computerDiscard.pop());
         playerDeck.mypush(computerDiscard.pop());
+        
+        // if the computer or player discard pile is equal to zero then nothing happens
+        if (computerDiscard.NumberOfCards === 0){
+            isGameOver(playerDeck, computerDeck)
+          } else if (playerDiscard.NumberOfCards === 0){
+            isGameOver(playerDeck, computerDeck)
+          } else {
+            //but if there is still cards in the player discard pile and they win the war then the cards will be pushed
+           playerDeck.mypush(playerDiscard.pop());
+            playerDeck.mypush(playerDiscard.pop());
+            playerDeck.mypush(playerDiscard.pop());
+            
+            playerDeck.mypush(computerDiscard.pop());
+            playerDeck.mypush(computerDiscard.pop());
+            playerDeck.mypush(computerDiscard.pop());
+          }
      } else if(CARD_VALUE_MAP[player.value] < CARD_VALUE_MAP[computer.value]){
         text.innerText = "You lose War";
         //Adds the card that was played to the computers deck
@@ -203,6 +221,22 @@ function compareWar(player, computer){
         computerDeck.mypush(computerDiscard.pop());
         computerDeck.mypush(computerDiscard.pop());
         computerDeck.mypush(computerDiscard.pop()); 
+
+        // if the computer or player discard pile is equal to zero then nothing happens
+        if (computerDiscard.NumberOfCards === 0){
+          isGameOver(playerDeck, computerDeck)
+        } else if (playerDiscard.NumberOfCards === 0){
+          isGameOver(playerDeck, computerDeck)
+        } else {
+           //but if there is still cards in the computer discard pile and they win the war then the cards will be pushed
+        computerDeck.mypush(playerDiscard.pop());
+        computerDeck.mypush(playerDiscard.pop());
+        computerDeck.mypush(playerDiscard.pop());
+
+        computerDeck.mypush(computerDiscard.pop());
+        computerDeck.mypush(computerDiscard.pop());
+        computerDeck.mypush(computerDiscard.pop()); 
+        }
     } else {
         text.innerText = "War again!";
         return war();
