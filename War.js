@@ -217,6 +217,7 @@ function compareWar(player, computer){
 
 
 
+
 //the game will be over when someones cards hit zero
 function isGameOver(player, computer){
      //if player runs out of cards then this will display
