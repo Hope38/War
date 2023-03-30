@@ -14,7 +14,7 @@ const CARD_VALUE_MAP = {
     "J":11,
     "Q":12,
     "K":13,
-    "A":14
+    "A":14,
 };
 
 const computerCardSlot = document.querySelector('.computer-card-slot');
@@ -25,7 +25,8 @@ const text = document.querySelector('.text');
 const playerDiscardDeckElement = document.querySelector('.player-Junk');
 const computerDiscardDeckElement = document.querySelector('.computer-Junk');
 
-let playerDeck, computerDeck, inRound, stop, playerDiscard, computerDiscard,cards;
+
+let playerDeck, computerDeck, inRound, stop, playerDiscard, computerDiscard;
 
 //if you click anywhere on the screen the function will run
 document.addEventListener('click', () => {
@@ -120,7 +121,7 @@ function isRoundWinner(player, computer){
     } else if(CARD_VALUE_MAP[player.value] == CARD_VALUE_MAP[computer.value]){
       //initiates war
       text.innerText = "Draw";
-      return war();
+      war();
     }
       isGameOver(playerDeck, computerDeck);
       updateDeckCount();
@@ -207,16 +208,14 @@ function compareWar(player, computer){
       while (computerDiscard.NumberOfCards > 0) {
         computerDeck.mypush(computerDiscard.pop());
       }
-  } else {
+  } else if (CARD_VALUE_MAP[player.value] == CARD_VALUE_MAP[computer.value]) {
       text.innerText = "War again!";
-      return war();
+       war();
   }
-
-  isGameOver(playerDeck, computerDeck)
+  
+  isGameOver(playerDeck, computerDeck);
+  updateDeckCount();
 }
-
-
-
 
 //the game will be over when someones cards hit zero
 function isGameOver(player, computer){
@@ -229,6 +228,5 @@ function isGameOver(player, computer){
         stop = true;
     }
 }
-
 
 
