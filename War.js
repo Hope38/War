@@ -98,7 +98,7 @@ function flipCards() {
 
 //updates the deck count
 function updateDeckCount(){
-    //changes the inner text to how many cards are in the deck. NumberOfCards is the length.
+  //changes the inner text to how many cards are in the deck. NumberOfCards is the length.
     computerDeckElement.innerText = computerDeck.NumberOfCards;
     playerDeckElement.innerText = playerDeck.NumberOfCards;
     computerDiscardDeckElement.innerText = computerDiscard.NumberOfCards;
@@ -108,22 +108,22 @@ function updateDeckCount(){
 //Will determine who wins, will detemine which card is worth more
 function isRoundWinner(player, computer){
     if (CARD_VALUE_MAP[player.value] > CARD_VALUE_MAP[computer.value]){
-        text.innerText = "win";
-        //Adds the card that was played to the players deck
-        playerDeck.mypush(player);
-        playerDeck.mypush(computer);
+      text.innerText = "win";
+      //Adds the card that was played to the players deck
+      playerDeck.mypush(player);
+      playerDeck.mypush(computer);
     } else if (CARD_VALUE_MAP[player.value] < CARD_VALUE_MAP[computer.value]){
-        text.innerText = "lose";
-        //Adds the card that was played to the computers deck
-        computerDeck.mypush(player);
-        computerDeck.mypush(computer);
+      text.innerText = "lose";
+      //Adds the card that was played to the computers deck
+      computerDeck.mypush(player);
+      computerDeck.mypush(computer);
     } else if(CARD_VALUE_MAP[player.value] == CARD_VALUE_MAP[computer.value]){
-        //initiates war
-        text.innerText = "Draw";
-        return war();
+      //initiates war
+      text.innerText = "Draw";
+      return war();
     }
-        isGameOver(playerDeck, computerDeck);
-        updateDeckCount();
+      isGameOver(playerDeck, computerDeck);
+      updateDeckCount();
 }
 
 function war(){ 
@@ -131,46 +131,46 @@ function war(){
     const computerCard = computerDeck.pop();
 
     //if the computer or deck has less than 4 cards then it will be game over
-    if (playerDeck.NumberOfCards === 3) {
-        playerDiscard.mypush(playerDeck.pop());
-        playerDiscard.mypush(playerDeck.pop());
-      } else if (computerDeck.NumberOfCards === 3){
-        computerDiscard.mypush(computerDeck.pop());
-        computerDiscard.mypush(computerDeck.pop());
-      } else {
-        //Adds three cards to the players discard pile
-        playerDiscard.mypush(playerDeck.pop());
-        playerDiscard.mypush(playerDeck.pop());
-        playerDiscard.mypush(playerDeck.pop());
+  if (playerDeck.NumberOfCards === 3) {
+      playerDiscard.mypush(playerDeck.pop());
+      playerDiscard.mypush(playerDeck.pop());
+    } else if (computerDeck.NumberOfCards === 3){
+      computerDiscard.mypush(computerDeck.pop());
+      computerDiscard.mypush(computerDeck.pop());
+    } else {
+      //Adds three cards to the players discard pile
+      playerDiscard.mypush(playerDeck.pop());
+      playerDiscard.mypush(playerDeck.pop());
+      playerDiscard.mypush(playerDeck.pop());
         
-        //Adds three cards to the computers discard pile
-        computerDiscard.mypush(computerDeck.pop());
-        computerDiscard.mypush(computerDeck.pop());
-        computerDiscard.mypush(computerDeck.pop());
+      //Adds three cards to the computers discard pile
+      computerDiscard.mypush(computerDeck.pop());
+      computerDiscard.mypush(computerDeck.pop());
+      computerDiscard.mypush(computerDeck.pop());
         
-        updateDeckCount();   
-      }
+      updateDeckCount();   
+    }
 
       //if the player or computer has only two cards then it will put one card into the discard pile
-      if (playerDeck.NumberOfCards === 2){
-        playerDiscard.mypush(playerDeck.pop());
-      } else if (computerDeck.NumberOfCards === 2){
-        computerDiscard.mypush(computerDeck.pop());   
-      }
+    if (playerDeck.NumberOfCards === 2){
+       playerDiscard.mypush(playerDeck.pop());
+    } else if (computerDeck.NumberOfCards === 2){
+       computerDiscard.mypush(computerDeck.pop());   
+    }
 
       //if the player or computer has only 1 cards then it will just draw that one to compare
-      if(playerDeck.NumberOfCards === 1){
-        compareWar(playerCard,computerCard)
-      } else if (computerDeck.NumberOfCards === 1){
-        compareWar(playerCard,computerCard)
-      }
+    if(playerDeck.NumberOfCards === 1){
+      compareWar(playerCard,computerCard)
+    } else if (computerDeck.NumberOfCards === 1){
+      compareWar(playerCard,computerCard)
+    }
 
     //if you have zero cards to play for war then it will be game over
-      if(playerDeck.NumberOfCards === 0){
-        isGameOver(playerDeck, computerDeck);
-      } else if (computerDeck.NumberOfCards === 0){
-        isGameOver(playerDeck, computerDeck);
-      }
+    if(playerDeck.NumberOfCards === 0){
+      isGameOver(playerDeck, computerDeck);
+    } else if (computerDeck.NumberOfCards === 0){
+      isGameOver(playerDeck, computerDeck);
+    }
 
     updateDeckCount();
     compareWar(playerCard, computerCard);
@@ -197,12 +197,12 @@ function compareWar(player, computer){
       // Adds cards played to computer's deck
       computerDeck.mypush(player);
       computerDeck.mypush(computer);
-
+      
       // Adds cards from player's discard pile
       while (playerDiscard.NumberOfCards > 0) {
         computerDeck.mypush(playerDiscard.pop());
       }
-
+      
       // Adds cards from computer's discard pile
       while (computerDiscard.NumberOfCards > 0) {
         computerDeck.mypush(computerDiscard.pop());
