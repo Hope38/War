@@ -3,41 +3,42 @@ const SYMBOLS = ["♠","♥","♦","♣"]//The symbols on the cards
 const VALUES = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"] //the numbers on the cards
 
 
- export default class Deck {
+export default class Deck {
     constructor(cards = freshDeck()) {
-        // the cards in the deck
-        this.cards = cards;
-}
+      // the cards in the deck
+      this.cards = cards;
+    }
+  
     get NumberOfCards() {
-        return this.cards.length;
+      return this.cards.length;
     }
-
-    //returns the top card from the deck
-    pop(){
-        return this.cards.shift();
+  
+    // returns the top card from the deck
+    pop() {
+      return this.cards.shift();
     }
-
-    //adds a card to the bottom of the deck
-    mypush(card) {
-        this.cards.push(card);
+  
+    // adds a card to the bottom of the deck
+    myPush(card) {
+      this.cards.push(card);
     }
-    
-    //shuffles the cards
+  
+    // shuffles the cards
     shuffle() {
-        //Goes from the back of the cards to the front
-       for (let i = this.NumberOfCards - 1; i > 0; i--){
-       
-           //Get the new index for where you're going to put the card
-           const newIndex = Math.floor(Math.random() * (i + 1));
-           
-           //flip the values from the new index with the current index
-           const oldValue = this.cards[newIndex];
-           this.cards[newIndex] = this.cards[i];
-           this.cards[i] = oldValue;
-       }
+      //Goes from the back of the cards to the front
+      for (let i = this.NumberOfCards - 1; i > 0; i--) {
+  
+        //Get the new index for where you're going to put the card
+        const newIndex = Math.floor(Math.random() * (i + 1));
+  
+        //flip the values from the new index with the current index
+        const oldValue = this.cards[newIndex];
+        this.cards[newIndex] = this.cards[i];
+        this.cards[i] = oldValue;
+      }
     }
-}
-
+  }
+  
 //the individual cards
 class Card {
     constructor(symbols, value) {
