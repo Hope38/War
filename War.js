@@ -186,6 +186,8 @@ function compareWar() {
 
     // Add cards to player's deck
     playerDeck.myPush(playerCard);
+    playerDeck.myPush(playerCard);
+    playerDeck.myPush(computerCard);
     playerDeck.myPush(computerCard);
 
     //takes all cards that was played and is given to the player
@@ -201,6 +203,8 @@ function compareWar() {
 
     // Add cards to computer's deck
     computerDeck.myPush(playerCard);
+    computerDeck.myPush(playerCard);
+    computerDeck.myPush(computerCard);
     computerDeck.myPush(computerCard);
 
     //takes all cards that was played and is given to the computer
