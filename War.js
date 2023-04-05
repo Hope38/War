@@ -111,10 +111,12 @@ function updateDeckCount(){
 function isRoundWinner(player, computer) {
   if (CARD_VALUE_MAP[player.value] > CARD_VALUE_MAP[computer.value]) {
     text.innerText = "You win this round!";
+    //It pushes the cards into the players hand
     playerDeck.myPush(player);
     playerDeck.myPush(computer);
   } else if (CARD_VALUE_MAP[player.value] < CARD_VALUE_MAP[computer.value]) {
     text.innerText = "You lose this round!";
+    //It pushes the cards into the computers hand
     computerDeck.myPush(computer);
     computerDeck.myPush(player);
   } else {
@@ -139,13 +141,18 @@ function isRoundWinner(player, computer) {
       computerDiscard.myPush(computerDeck.pop());
       computerDiscard.myPush(computerDeck.pop());
       
-      updateDeckCount();   
+      updateDeckCount(); 
+      
+      // Delay the execution of compareWar() by 1 second
+      setTimeout(function() {
+        compareWar();
+      }, 1000);
     } 
-  compareWar(playerCard, computerCard)
+  }
+  updateDeckCount();
+  isGameOver(playerDeck, computerDeck); 
 }
-updateDeckCount();
-  isGameOver(); 
-}
+
 
 function compareWar() {
   // Get the next card for each player
@@ -199,7 +206,7 @@ function compareWar() {
 
   // Update the deck count and check if the game is over
   updateDeckCount();
-  isGameOver();
+  isGameOver(playerDeck, computerDeck);
 }
 
   

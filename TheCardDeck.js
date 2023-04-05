@@ -45,7 +45,7 @@ class Card {
         //the individual cards
         this.symbols = symbols;
         this.value = value;
-        console.log("Card value:", value);
+        //console.log("Card value:", value);
     }
 
     //if a card has a ♠ or ♣ then it will be black, if not then it is red
