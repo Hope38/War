@@ -120,8 +120,6 @@ function isRoundWinner(player, computer) {
     computerDeck.myPush(computer);
     computerDeck.myPush(player);
   } else {
-    const playerCard = playerDeck.pop();
-    const computerCard = computerDeck.pop();
     text.innerText = "WAR!";
 
     if (playerDeck.NumberOfCards === 3) {
@@ -146,7 +144,7 @@ function isRoundWinner(player, computer) {
       // Delay the execution of compareWar() by 1 second
       setTimeout(function() {
         compareWar();
-      }, 1000);
+      }, 500);
     } 
   }
   updateDeckCount();
@@ -155,6 +153,8 @@ function isRoundWinner(player, computer) {
 
 
 function compareWar() {
+  inRound = true;
+  updateDeckCount();
   // Get the next card for each player
   const playerCard = playerDeck.pop();
   const computerCard = computerDeck.pop();
@@ -200,8 +200,9 @@ function compareWar() {
     playerDiscard.myPush(playerDeck.pop());
     playerDiscard.myPush(playerDeck.pop());
     // Call the function again to resolve the war
-    compareWar();
-    return;
+    setTimeout(function() {
+      compareWar();
+    }, 500);
   }
 
   // Update the deck count and check if the game is over
