@@ -128,7 +128,19 @@ function isRoundWinner(player, computer) {
     } else if (computerDeck.NumberOfCards === 3){
       computerDiscard.myPush(computerDeck.pop());
       computerDiscard.myPush(computerDeck.pop());
-    } else {
+    } else if (playerDiscard.myPush.NumberOfCards === 2){
+      playerDiscard.myPush(playerDeck.pop());
+    }else if (computerDiscard.myPush.NumberOfCards === 2){
+      computerDiscard.myPush(playerDeck.pop());
+    }else if (playerDiscard.myPush.NumberOfCards === 1){
+      setTimeout(function() {
+        compareWar();
+      }, 500);
+    }else if (computerDiscard.myPush.NumberOfCards === 1){
+        setTimeout(function() {
+          compareWar();
+        }, 500);
+    }else {
       //Adds three cards to the players discard pile
       playerDiscard.myPush(playerDeck.pop());
       playerDiscard.myPush(playerDeck.pop());
