@@ -168,7 +168,7 @@ function isRoundWinner(player, computer) {
 }
 
 function compareWar() {
-  //makes sure the player does not spam the mouse during war
+  //makes sure there is not a delay in displaying the cards
   inRound = true;
   updateDeckCount();
 
@@ -254,8 +254,9 @@ function compareWar() {
   // Update the deck count and check if the game is over
   updateDeckCount();
   isGameOver(playerDeck, computerDeck);
+ }
 }
-}
+
 //the game will be over when someones cards hit zero
 function isGameOver(player, computer){
      //if player runs out of cards then this will display
