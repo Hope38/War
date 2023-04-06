@@ -31,12 +31,13 @@ body {
 
 .scoreboard {
     position: relative;
-    padding-right: 9rem;
-    padding-left: 1rem;
-    align-items: left;
+    display: flex;
+    padding-right: 10rem;
+    padding-left: 2rem;
+    justify-content: center, left;
+    align-items: center;
     border: 2px solid black;
     border-radius: .1rem;
-    justify-content: left;
     color:black;
 }
 
@@ -62,7 +63,10 @@ body {
     justify-content: center;
     align-items: center;
 }
-
+h3 {
+    justify-content: center;
+    display: flex;
+}
 .card {
     position: relative;
     height: 100%;

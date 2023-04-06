@@ -25,6 +25,7 @@ const playerDeckElement = document.querySelector('.player-deck');
 const text = document.querySelector('.text');
 const playerDiscardDeckElement = document.querySelector('.player-Junk');
 const computerDiscardDeckElement = document.querySelector('.computer-Junk');
+const scores = document.querySelector('.scoreboard');
 
 let playerDeck, computerDeck, inRound, stop, playerDiscard, computerDiscard;
 
@@ -104,6 +105,7 @@ function updateDeckCount(){
     computerDiscardDeckElement.innerText = computerDiscard.NumberOfCards;
     playerDiscardDeckElement.innerText = playerDiscard.NumberOfCards;
 }
+
 //console.log(player); // check the value of player
 //console.log(computer); // check the value of computer
 
@@ -260,12 +262,13 @@ function compareWar() {
   isGameOver(playerDeck, computerDeck);
  }
 }
-
+ let computerScore = 0;
 //the game will be over when someones cards hit zero
 function isGameOver(player, computer){
      //if player runs out of cards then this will display
     if (player.NumberOfCards === 0){
         text.innerText = "the computer wins";
+        scores.innerText = "Computer:"+ computerScore++;
         stop = true;
     } else if (computer.NumberOfCards === 0){
         text.innerText = "the player wins";
