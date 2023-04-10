@@ -7,7 +7,7 @@ body {
     margin: 0;
     display: grid;
     grid-template-columns: repeat(3, 5rem);
-    grid-template-rows: 6rem 4rem 5rem 5rem 6rem 4rem;
+    grid-template-rows: 6rem 4rem 6rem 6rem 6rem 4rem;
     gap: .9rem;
     cursor: pointer;
     justify-content:center;
@@ -32,13 +32,15 @@ body {
 .scoreboard {
     position: relative;
     display: flex;
-    padding-right: 10rem;
+    padding-right: 25rem;
     padding-left: 2rem;
-    justify-content: center, left;
     align-items: center;
     border: 2px solid black;
     border-radius: .1rem;
     color:black;
+    font-size: 24px;
+    font-weight: bold;
+    
 }
 
 .computer-deck{

@@ -33,6 +33,7 @@ let playerDeck, computerDeck, inRound, stop, playerDiscard, computerDiscard;
 document.addEventListener('click', () => {
     if(stop) {
         startGame();
+        updateScores()
         return;
     }
 
@@ -56,7 +57,7 @@ function startGame(){
     const deckMidpoint = Math.ceil(deck.NumberOfCards / 2);
     
     //the players deck - This splits the cards
-    playerDeck = new Deck(deck.cards.slice(0, deckMidpoint));
+    playerDeck = new Deck(deck.cards.slice(0, 1));
     //the computers deck
     computerDeck = new Deck(deck.cards.slice(deckMidpoint, deck.NumberOfCards));
 
@@ -64,13 +65,14 @@ function startGame(){
     computerDiscard = new Deck([]);
     inRound = false;
     stop = false;
-
+    
     //calls the function
     cleanBeforeRound();
 }
 
 //Creates a default state
 function cleanBeforeRound(){
+    
     inRound = false;
     computerCardSlot.innerHTML = "";
     playerCardSlot.innerHTML = "";
@@ -124,7 +126,6 @@ function isRoundWinner(player, computer) {
     computerDeck.myPush(player);
   } else {
     text.innerText = "WAR!";
-
     //if the player or computer has less than four cards then it will only take two cards from their hand
     if (playerDeck.NumberOfCards === 3) {
       playerDiscard.myPush(playerDeck.pop());
@@ -262,19 +263,33 @@ function compareWar() {
   isGameOver(playerDeck, computerDeck);
  }
 }
- let computerScore = 0;
-//the game will be over when someones cards hit zero
-function isGameOver(player, computer){
-     //if player runs out of cards then this will display
-    if (player.NumberOfCards === 0){
-        text.innerText = "the computer wins";
-        scores.innerText = "Computer:"+ computerScore++;
-        stop = true;
-    } else if (computer.NumberOfCards === 0){
-        text.innerText = "the player wins";
-        stop = true;
-    }
+
+
+
+let computerScore = 0;
+let playerScore = 0;
+
+// Function to update scores
+function updateScores() {
+  scores.innerText = `Computer: ${computerScore} - Player: ${playerScore}`;
 }
+
+// The game will be over when someone's cards hit zero
+function isGameOver(player, computer) {
+  // If player runs out of cards then this will display
+  if (player.NumberOfCards === 0) {
+    text.innerText = "The computer wins";
+    computerScore++; // Update computer score
+    stop = true;
+  } else if (computer.NumberOfCards === 0) {
+    text.innerText = "The player wins";
+    playerScore++; // Update player score
+    stop = true;
+  }
+  // Update scores on the screen
+  updateScores();
+}
+
 
 
 
