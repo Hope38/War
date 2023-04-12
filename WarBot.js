@@ -45,7 +45,7 @@ function playGame(){
         flipCards();
     }
 }
-setInterval(playGame, 500);
+setInterval(playGame, 1000);
 //The actual game
 startGame();
 
@@ -142,11 +142,11 @@ function isRoundWinner(player, computer) {
     }else if (playerDiscard.myPush.NumberOfCards === 1){
       setTimeout(function() {
         compareWar();
-      }, 500);
+      }, 1000);
     }else if (computerDiscard.myPush.NumberOfCards === 1){
         setTimeout(function() {
           compareWar();
-        }, 500);
+        }, 1000);
     }else {
       //Adds three cards to the players discard pile
       playerDiscard.myPush(playerDeck.pop());
@@ -163,7 +163,7 @@ function isRoundWinner(player, computer) {
       // Delay the execution of compareWar() by 1 second
       setTimeout(function() {
         compareWar();
-      }, 500);
+      }, 1000);
     } 
   }
   updateDeckCount();
@@ -234,11 +234,11 @@ function compareWar() {
     }else if (playerDiscard.myPush.NumberOfCards === 1){
       setTimeout(function() {
         compareWar();
-      }, 500);
+      }, 1000);
     }else if (computerDiscard.myPush.NumberOfCards === 1){
         setTimeout(function() {
           compareWar();
-        }, 500);
+        }, 1000);
     }else {
       //Adds three cards to the players discard pile
       playerDiscard.myPush(playerDeck.pop());
@@ -255,7 +255,7 @@ function compareWar() {
       // Delay the execution of compareWar() by 1 second
       setTimeout(function() {
         compareWar();
-      }, 500);
+      }, 1000);
     } 
 
   // Update the deck count and check if the game is over
