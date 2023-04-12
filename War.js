@@ -271,7 +271,7 @@ let playerScore = 0;
 
 // Function to update scores
 function updateScores() {
-  scores.innerText = `Computer: ${computerScore} - Player: ${playerScore}`;
+  scores.innerText = `Comp: ${computerScore} \n Player: ${playerScore}`;
 }
 
 // The game will be over when someone's cards hit zero

@@ -30,6 +30,7 @@ body {
 }
 
 .scoreboard {
+    margin: 0 5px;
     position: relative;
     display: flex;
     padding-right: 25rem;
