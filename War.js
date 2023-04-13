@@ -57,7 +57,7 @@ function startGame(){
     const deckMidpoint = Math.ceil(deck.NumberOfCards / 2);
     
     //the players deck - This splits the cards
-    playerDeck = new Deck(deck.cards.slice(0, 1));
+    playerDeck = new Deck(deck.cards.slice(0, deckMidpoint));
     //the computers deck
     computerDeck = new Deck(deck.cards.slice(deckMidpoint, deck.NumberOfCards));
 
