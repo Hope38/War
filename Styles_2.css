@@ -1,12 +1,114 @@
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+    
 body {
     margin: 0;
     display: grid;
-    grid-template-columns: repeat(2, 4rem);
-    grid-template-rows: 7rem 3rem 9rem;
-    gap: .8rem;
+    grid-template-columns: repeat(4, 5rem);
+    grid-template-rows: 6rem 4rem 6rem 6rem 6rem 4rem;
+    gap: 3rem;
     cursor: pointer;
     justify-content:center;
-    padding-top: 4rem;
-    
-    
+    padding-top: 10rem;
+    background-color: rgb(253, 226, 190);
 }
+
+.deck {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    border-radius: .5rem;
+    color:white;
+    user-select: none;
+}
+
+.scoreboard {
+    margin: 0 5px;
+    position: relative;
+    display: flex;
+    padding-right: 8rem;
+    padding-left: 2rem;
+    align-items: center;
+    border: 2px solid black;
+    border-radius: .1rem;
+    color:black;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.computer-deck{
+    background-color: rgb(230, 10, 57);
+}
+
+.player-deck{
+    background-color: rgb(2, 8, 2);
+}
+
+.computer-Junk{
+    background-color: rgb(230, 10, 57);
+}
+
+.player-Junk{
+    background-color: rgb(2, 8, 2); 
+}
+
+.text {
+    grid-column: span 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+h3 {
+    justify-content: center;
+    display: flex;
+}
+.card {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    border: 1px solid black;
+    border-radius: .5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
+    background-color: white;
+}
+
+.card.red {
+    color:red;
+}
+
+.card.black {
+    color:black;
+}
+
+.card::before, 
+.card::after {
+    /* Puts the values on the top and bottom of the card */
+    position: absolute;
+    /*  Displays the values on the cards */
+    content: attr(data-value);
+    font-size: 1rem;
+}
+
+.card::before {
+    top: .5rem;
+    left: .5rem;
+}
+
+.card::after{
+    bottom: .5rem;
+    right: .5rem;
+    transform: rotate(180deg);
+}
+
+
+
