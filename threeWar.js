@@ -20,14 +20,18 @@ const CARD_VALUE_MAP = {
 
 const computerCardSlot = document.querySelector('.computer-card-slot');
 const playerCardSlot = document.querySelector('.player-card-slot');
+const thirdCardSlot = document.querySelector('.third-card-slot');
 const computerDeckElement = document.querySelector('.computer-deck');
 const playerDeckElement = document.querySelector('.player-deck');
+const thirdplayerElement = document.querySelector('.third-deck');
+
 const text = document.querySelector('.text');
 const playerDiscardDeckElement = document.querySelector('.player-Junk');
 const computerDiscardDeckElement = document.querySelector('.computer-Junk');
+const thirdDiscardDeckElement = document
 const scores = document.querySelector('.scoreboard');
 
-let playerDeck, computerDeck, inRound, stop, playerDiscard, computerDiscard;
+let playerDeck, ThirdDeck,computerDeck, inRound, stop, playerDiscard, computerDiscard;
 
 //if you click anywhere on the screen the function will run
 document.addEventListener('click', () => {
@@ -54,12 +58,14 @@ function startGame(){
     deck.shuffle();
     
     //splits it into equal pile of cards
-    const deckMidpoint = Math.ceil(deck.NumberOfCards / 2);
+    const deckMidpoint = Math.ceil(deck.NumberOfCards / 3);
     
     //the players deck - This splits the cards
     playerDeck = new Deck(deck.cards.slice(0, deckMidpoint));
     //the computers deck
     computerDeck = new Deck(deck.cards.slice(deckMidpoint, deck.NumberOfCards));
+
+    ThirdDeck = new Deck(0,1);
 
     playerDiscard = new Deck([]);
     computerDiscard = new Deck([]);
@@ -76,6 +82,7 @@ function cleanBeforeRound(){
     inRound = false;
     computerCardSlot.innerHTML = "";
     playerCardSlot.innerHTML = "";
+    thirdCardSlot.innerHTML = "";
     text.innerText = "";
 
     //calls the function
@@ -91,10 +98,12 @@ function flipCards() {
     //gives you the first card
     const playerCard = playerDeck.pop();
     const computerCard = computerDeck.pop();
+    const thirdCard = ThirdDeck.pop();
     
     //renders the cards
     playerCardSlot.appendChild(playerCard.getHTML());
     computerCardSlot.appendChild(computerCard.getHTML());
+    thirdCardSlot.appendChild(thirdCard.getHTML());
     
     isRoundWinner(playerCard, computerCard);
 }
@@ -106,6 +115,7 @@ function updateDeckCount(){
     playerDeckElement.innerText = playerDeck.NumberOfCards;
     computerDiscardDeckElement.innerText = computerDiscard.NumberOfCards;
     playerDiscardDeckElement.innerText = playerDiscard.NumberOfCards;
+    thirdplayerElement.innerText = ThirdDeck.NumberOfCards;
 }
 
 //console.log(player); // check the value of player

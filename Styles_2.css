@@ -6,12 +6,13 @@
 body {
     margin: 0;
     display: grid;
-    grid-template-columns: repeat(4, 5rem);
-    grid-template-rows: 6rem 4rem 6rem 6rem 6rem 4rem;
-    gap: 3rem;
+    grid-template-columns: repeat(3, 5rem);
+    grid-template-rows: 6rem 6rem 6rem 6rem 6rem 4rem 6rem;
+    gap: .9rem;
     cursor: pointer;
     justify-content:center;
-    padding-top: 10rem;
+    align-items: center;
+    padding-top: 5rem;
     background-color: rgb(253, 226, 190);
 }
 
