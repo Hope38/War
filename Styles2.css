@@ -6,13 +6,13 @@
 body {
     margin: 0;
     display: grid;
-    grid-template-columns: repeat(3, 5rem);
-    grid-template-rows: 6rem 6rem 6rem 6rem 6rem 4rem 6rem;
-    gap: .9rem;
+    grid-template-columns: repeat(5, 5rem);
+    grid-template-rows:6rem 4rem 6rem 6rem 6rem;
+    gap: .5rem;
     cursor: pointer;
     justify-content:center;
     align-items: center;
-    padding-top: 5rem;
+    padding-top: 1rem;
     background-color: rgb(253, 226, 190);
 }
 
@@ -52,12 +52,21 @@ body {
     background-color: rgb(2, 8, 2);
 }
 
+.third-deck{
+    background-color: rgb(20, 30, 114);
+    position: relative;
+}
+
 .computer-Junk{
     background-color: rgb(230, 10, 57);
 }
 
 .player-Junk{
     background-color: rgb(2, 8, 2); 
+}
+
+.third-Junk {
+    background-color: rgb(20, 30, 114);
 }
 
 .text {

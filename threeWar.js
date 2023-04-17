@@ -28,10 +28,10 @@ const thirdplayerElement = document.querySelector('.third-deck');
 const text = document.querySelector('.text');
 const playerDiscardDeckElement = document.querySelector('.player-Junk');
 const computerDiscardDeckElement = document.querySelector('.computer-Junk');
-const thirdDiscardDeckElement = document
+const thirdDiscardDeckElement = document.querySelector('.third-Junk');
 const scores = document.querySelector('.scoreboard');
 
-let playerDeck, ThirdDeck,computerDeck, inRound, stop, playerDiscard, computerDiscard;
+let playerDeck, ThirdDeck,computerDeck, inRound, stop, playerDiscard, computerDiscard, ThirdJunk;
 
 //if you click anywhere on the screen the function will run
 document.addEventListener('click', () => {
@@ -62,13 +62,16 @@ function startGame(){
     
     //the players deck - This splits the cards
     playerDeck = new Deck(deck.cards.slice(0, deckMidpoint));
+    
+    ThirdDeck = new Deck(deck.cards.slice(deckMidpoint, deckMidpoint * 2));
     //the computers deck
-    computerDeck = new Deck(deck.cards.slice(deckMidpoint, deck.NumberOfCards));
+    computerDeck = new Deck(deck.cards.slice(deckMidpoint * 2 + 1, 52));
 
-    ThirdDeck = new Deck(0,1);
-
+    
+    ThirdJunk = new Deck([]);
     playerDiscard = new Deck([]);
     computerDiscard = new Deck([]);
+
     inRound = false;
     stop = false;
     
@@ -115,6 +118,7 @@ function updateDeckCount(){
     playerDeckElement.innerText = playerDeck.NumberOfCards;
     computerDiscardDeckElement.innerText = computerDiscard.NumberOfCards;
     playerDiscardDeckElement.innerText = playerDiscard.NumberOfCards;
+    thirdDiscardDeckElement.innerText = ThirdJunk.NumberOfCards;
     thirdplayerElement.innerText = ThirdDeck.NumberOfCards;
 }
 
