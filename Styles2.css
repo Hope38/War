@@ -7,13 +7,23 @@ body {
     margin: 0;
     display: grid;
     grid-template-columns: repeat(5, 5rem);
-    grid-template-rows:6rem 4rem 6rem 6rem 6rem;
+    grid-template-rows:9rem 4rem 6rem 6rem 6rem;
     gap: .5rem;
     cursor: pointer;
     justify-content:center;
     align-items: center;
-    padding-top: 1rem;
+    padding-top: 8rem;
     background-color: rgb(253, 226, 190);
+}
+.row {
+    /* Add your styling for the row class here */
+    /* Example styles */
+    display: grid;
+    grid-template-columns: repeat(1, 5rem); 
+    grid-template-rows:6rem 6rem 6rem 6rem 6rem;
+    padding-top: 15rem;/* Adjust grid column template as needed */
+    gap: 1rem; /* Adjust gap between grid items as needed */
+    /* Additional styles for row class */
 }
 
 .deck {
