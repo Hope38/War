@@ -6,9 +6,9 @@
 body {
     margin: 0;
     display: grid;
-    grid-template-columns: repeat(5, 5rem);
+    grid-template-columns: repeat(6, 5rem);
     grid-template-rows:9rem 4rem 6rem 6rem 6rem;
-    gap: .5rem;
+    gap: 2rem;
     cursor: pointer;
     justify-content:center;
     align-items: center;
@@ -21,7 +21,7 @@ body {
     display: grid;
     grid-template-columns: repeat(1, 5rem); 
     grid-template-rows:6rem 6rem 6rem 6rem 6rem;
-    padding-top: 15rem;/* Adjust grid column template as needed */
+    padding-top: 20rem;/* Adjust grid column template as needed */
     gap: 1rem; /* Adjust gap between grid items as needed */
     /* Additional styles for row class */
 }
