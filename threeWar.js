@@ -108,7 +108,7 @@ function flipCards() {
     computerCardSlot.appendChild(computerCard.getHTML());
     thirdCardSlot.appendChild(thirdCard.getHTML());
     
-    isRoundWinner(playerCard, computerCard);
+    isRoundWinner(playerCard, computerCard, thirdCard);
 }
 
 //updates the deck count
@@ -127,37 +127,50 @@ function updateDeckCount(){
 
 //Will determine who wins, will detemine which card is worth more
 
-function isRoundWinner(player, computer) {
-  if (CARD_VALUE_MAP[player.value] > CARD_VALUE_MAP[computer.value]) {
-    text.innerText = "You win this round!";
-    //It pushes the cards into the players hand
+function isRoundWinner(player, computer, third) {
+  if (CARD_VALUE_MAP[player.value] > CARD_VALUE_MAP[computer.value] && CARD_VALUE_MAP[player.value] > CARD_VALUE_MAP[third.value]) {
+    text.innerText = "Player 1 Wins";
+    //It pushes the cards into the player 1s hand
     playerDeck.myPush(player);
+    playerDeck.myPush(third);
     playerDeck.myPush(computer);
-  } else if (CARD_VALUE_MAP[player.value] < CARD_VALUE_MAP[computer.value]) {
-    text.innerText = "You lose this round!";
+  } else if (CARD_VALUE_MAP[computer.value] > CARD_VALUE_MAP[player.value] && CARD_VALUE_MAP[computer.value] > CARD_VALUE_MAP[third.value]) {
+    text.innerText = "Computer Wins";
     //It pushes the cards into the computers hand
     computerDeck.myPush(computer);
+    computerDeck.myPush(third);
     computerDeck.myPush(player);
-  } else {
+  } else if (CARD_VALUE_MAP[third.value] > CARD_VALUE_MAP[player.value] && CARD_VALUE_MAP[third.value] > CARD_VALUE_MAP[computer.value]) {
+    text.innerText = "Third Player Wins";
+    //It pushes the cards into the third players hand
+    ThirdDeck.myPush(computer);
+    ThirdDeck.myPush(third);
+    ThirdDeck.myPush(player);
+  }else {
     text.innerText = "WAR!";
-    //if the player or computer has less than four cards then it will only take two cards from their hand
+    //if the player1, computer, or player3 has less than four cards then it will only take two cards from their hand
     if (playerDeck.NumberOfCards === 3) {
       playerDiscard.myPush(playerDeck.pop());
       playerDiscard.myPush(playerDeck.pop());
     } else if (computerDeck.NumberOfCards === 3){
       computerDiscard.myPush(computerDeck.pop());
       computerDiscard.myPush(computerDeck.pop());
-    // if the player of computer has less than three cards then it will only take one card from their hand
-    } else if (playerDiscard.myPush.NumberOfCards === 2){
+    } else if (ThirdDeck.NumberOfCards === 3){
+      ThirdJunk.myPush(ThirdDeck.pop());
+      ThirdJunk.myPush(ThirdDeck.pop());}
+    // if the player1, computer, or player 3 has less than three cards then it will only take one card from their hand
+    else if (playerDeck.NumberOfCards === 2){
       playerDiscard.myPush(playerDeck.pop());
-    }else if (computerDiscard.myPush.NumberOfCards === 2){
-      computerDiscard.myPush(playerDeck.pop());
-    //if the player or computer only has one card then it will go to comparewar
-    }else if (playerDiscard.myPush.NumberOfCards === 1){
+    }else if (computerDeck.NumberOfCards === 2){
+      computerDiscard.myPush(computerDeck.pop());
+    }else if (ThirdDeck.NumberOfCards === 2){
+      ThirdJunk.myPush(playerDeck.pop());
+    //if the player1, computer, or player 3 only has one card then it will go to comparewar
+    }else if (playerDeck.NumberOfCards === 1){
       setTimeout(function() {
         compareWar();
       }, 500);
-    }else if (computerDiscard.myPush.NumberOfCards === 1){
+    }else if (computerDeck.NumberOfCards === 1){
         setTimeout(function() {
           compareWar();
         }, 500);
@@ -171,6 +184,11 @@ function isRoundWinner(player, computer) {
       computerDiscard.myPush(computerDeck.pop());
       computerDiscard.myPush(computerDeck.pop());
       computerDiscard.myPush(computerDeck.pop());
+
+      //adds three cards to the third players discard pile
+      ThirdJunk.myPush(ThirdDeck.pop());
+      ThirdJunk.myPush(ThirdDeck.pop());
+      ThirdJunk.myPush(ThirdDeck.pop());
       
       updateDeckCount(); 
       
@@ -192,20 +210,24 @@ function compareWar() {
   // Get the next card for each player
   const playerCard = playerDeck.pop();
   const computerCard = computerDeck.pop();
+  const thirdCard = ThirdDeck.pop();
 
   // Render the cards on the screen
   playerCardSlot.appendChild(playerCard.getHTML());
   computerCardSlot.appendChild(computerCard.getHTML());
+  thirdCardSlot.appendChild(thirdCard.getHTML());
 
   // Compare the cards and resolve the war
-  if (CARD_VALUE_MAP[playerCard.value] > CARD_VALUE_MAP[computerCard.value]) {
-    text.innerText = "You win the war!";
+  if (CARD_VALUE_MAP[playerCard.value] > CARD_VALUE_MAP[computerCard.value]&& CARD_VALUE_MAP[playerCard.value] > CARD_VALUE_MAP[thirdCard.value]) {
+    text.innerText = "Player 1 wins WAR";
 
     // Add cards to player's deck
     playerDeck.myPush(playerCard);
     playerDeck.myPush(playerCard);
     playerDeck.myPush(computerCard);
     playerDeck.myPush(computerCard);
+    playerDeck.myPush(thirdCard);
+    playerDeck.myPush(thirdCard);
 
     //takes all cards that was played and is given to the player
     while (playerDiscard.NumberOfCards > 0) {
@@ -214,15 +236,20 @@ function compareWar() {
     while (computerDiscard.NumberOfCards > 0) {
       playerDeck.myPush(computerDiscard.pop());
     }
+    while (ThirdJunk.NumberOfCards > 0){
+      playerDeck.myPush(ThirdJunk.pop());
+    }
 
-  } else if (CARD_VALUE_MAP[playerCard.value] < CARD_VALUE_MAP[computerCard.value]) {
-    text.innerText = "You lose the war!";
+  } else if (CARD_VALUE_MAP[computerCard.value] > CARD_VALUE_MAP[playerCard.value] && CARD_VALUE_MAP[computerCard.value] > CARD_VALUE_MAP[thirdCard.value]) {
+    text.innerText = "The comp wins war!";
 
     // Add cards to computer's deck
     computerDeck.myPush(playerCard);
     computerDeck.myPush(playerCard);
     computerDeck.myPush(computerCard);
     computerDeck.myPush(computerCard);
+    computerDeck.myPush(thirdCard);
+    computerDeck.myPush(thirdCard);
 
     //takes all cards that was played and is given to the computer
     while (playerDiscard.NumberOfCards > 0) {
@@ -231,8 +258,33 @@ function compareWar() {
     while (computerDiscard.NumberOfCards > 0) {
       computerDeck.myPush(computerDiscard.pop());
     }
+    while (ThirdJunk.NumberOfCards > 0){
+      computerDeck.myPush(ThirdJunk.pop());
+    }
 
-  } else {
+  } else if (CARD_VALUE_MAP[thirdCard.value] > CARD_VALUE_MAP[playerCard.value] && CARD_VALUE_MAP[thirdCard.value] > CARD_VALUE_MAP[thirdCard.value]) {
+    text.innerText = "The comp wins war!";
+
+    // Add cards to computer's deck
+    ThirdDeck.myPush(playerCard);
+    ThirdDeck.myPush(playerCard);
+    ThirdDeck.myPush(computerCard);
+    ThirdDeck.myPush(computerCard);
+    ThirdDeck.myPush(thirdCard);
+    ThirdDeck.myPush(thirdCard);
+
+    //takes all cards that was played and is given to the computer
+    while (playerDiscard.NumberOfCards > 0) {
+      computerDeck.myPush(playerDiscard.pop());
+    }
+    while (computerDiscard.NumberOfCards > 0) {
+      computerDeck.myPush(computerDiscard.pop());
+    }
+    while (ThirdJunk.NumberOfCards > 0){
+      computerDeck.myPush(ThirdJunk.pop());
+    }
+
+  }else {
     //if war happens again then it will go through the process again until it is over
     text.innerText = "War again!";
     if (playerDeck.NumberOfCards === 3) {
