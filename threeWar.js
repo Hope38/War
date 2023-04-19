@@ -282,7 +282,7 @@ else if (CARD_VALUE_MAP[computer.value] == CARD_VALUE_MAP[third.value] && CARD_V
   } 
 
   Compvs3War([computer, third]);
-} else {
+} else if (CARD_VALUE_MAP[player.value] == CARD_VALUE_MAP[computer.value] == CARD_VALUE_MAP[third.value]) {
   text.innerText = "WAR!";
   //if the player1, computer, or player3 has less than four cards then it will only take two cards from their hand
   if (playerDeck.NumberOfCards === 3) {
@@ -310,7 +310,7 @@ else if (CARD_VALUE_MAP[computer.value] == CARD_VALUE_MAP[third.value] && CARD_V
       setTimeout(function() {
         HandleThreeWayWar();
       }, 500);
-  }else {
+  } else {
     //Adds three cards to the players discard pile
     playerDiscard.myPush(playerDeck.pop());
     playerDiscard.myPush(playerDeck.pop());
@@ -399,8 +399,8 @@ function HandleThreeWayWar() {
       computerDeck.myPush(ThirdJunk.pop());
     }
 
-  } else if (CARD_VALUE_MAP[thirdCard.value] > CARD_VALUE_MAP[playerCard.value] && CARD_VALUE_MAP[thirdCard.value] > CARD_VALUE_MAP[thirdCard.value]) {
-    text.innerText = "The comp wins war!";
+  } else if (CARD_VALUE_MAP[thirdCard.value] > CARD_VALUE_MAP[playerCard.value] && CARD_VALUE_MAP[thirdCard.value] > CARD_VALUE_MAP[computerCard.value]) {
+    text.innerText = "The third player wins war!";
 
     // Add cards to computer's deck
     ThirdDeck.myPush(playerCard);
@@ -421,7 +421,7 @@ function HandleThreeWayWar() {
       ThirdDeck.myPush(ThirdJunk.pop());
     }
 
-  }else {
+  }else if (CARD_VALUE_MAP[player.value] == CARD_VALUE_MAP[computer.value] == CARD_VALUE_MAP[third.value])  {
     //if war happens again then it will go through the process again until it is over
     text.innerText = "War again!";
     if (playerDeck.NumberOfCards === 3) {
@@ -686,21 +686,33 @@ let thirdScore = 0;
 
 // Function to update scores
 function updateScores() {
-  scores.innerText = `Comp: ${computerScore} \n Player: ${playerScore} \n Player3: ${thirdScore}`;
+  scores.innerText = `Comp: ${computerScore} \n Player1: ${playerScore} \n Player3: ${thirdScore}`;
 }
 
 // The game will be over when someone's cards hit zero
 function isGameOver(player, computer, third) {
   // If player runs out of cards then this will display
-  if (player.NumberOfCards === 0) {
+  if (player.NumberOfCards === 0 && third.NumberOfCards === 0) {
     text.innerText = "The computer wins";
     computerScore++; // Update computer score
     stop = true;
-  } else if (computer.NumberOfCards === 0) {
+  } else if (computer.NumberOfCards === 0){
+    text.innerText = "The Computer is out of cards";
+    computerCardSlot.innerHTML = "";
+    inRound = true;
+  }else if (player.NumberOfCards === 0){
+    text.innerText = "Player 1 is out of cards";
+    playerCardSlot.innerHTML = "";
+    inRound = true;
+  }else if (third.NumberOfCards === 0){
+    text.innerText = "The third player is out of cards";
+    thirdCardSlot.innerHTML = "";
+    inRound = true;
+  }else if (computer.NumberOfCards === 0 && third.NumberOfCards === 0) {
     text.innerText = "The player wins";
     playerScore++; // Update player score
     stop = true;
-  } else if (third.NumberOfCards === 0) {
+  } else if (computer.NumberOfCards === 0 && player.NumberOfCards === 0) {
     text.innerText = "The third player wins";
     thirdScore++; // Update player score
     stop = true;
