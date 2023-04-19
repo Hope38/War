@@ -50,7 +50,7 @@ body {
     border: 2px solid black;
     border-radius: .1rem;
     color:black;
-    font-size: 15px;
+    font-size: 12px;
     font-weight: bold;
 }
 
@@ -84,6 +84,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 15px;
 }
 h3 {
     justify-content: center;
