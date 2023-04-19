@@ -275,13 +275,13 @@ function compareWar() {
 
     //takes all cards that was played and is given to the computer
     while (playerDiscard.NumberOfCards > 0) {
-      computerDeck.myPush(playerDiscard.pop());
+      ThirdDeck.myPush(playerDiscard.pop());
     }
     while (computerDiscard.NumberOfCards > 0) {
-      computerDeck.myPush(computerDiscard.pop());
+      ThirdDeck.myPush(computerDiscard.pop());
     }
     while (ThirdJunk.NumberOfCards > 0){
-      computerDeck.myPush(ThirdJunk.pop());
+      ThirdDeck.myPush(ThirdJunk.pop());
     }
 
   }else {
