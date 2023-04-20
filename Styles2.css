@@ -80,7 +80,7 @@ body {
 }
 
 .text {
-    grid-column: span 2;
+    grid-column: span 3;
     display: flex;
     justify-content: center;
     align-items: center;

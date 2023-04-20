@@ -162,7 +162,7 @@ if (CARD_VALUE_MAP[player.value] > CARD_VALUE_MAP[computer.value] && CARD_VALUE_
   ThirdDeck.myPush(player);
   ThirdDeck.myPush(third);
   ThirdDeck.myPush(computer);
-} else if (CARD_VALUE_MAP[player.value] == CARD_VALUE_MAP[computer.value] && CARD_VALUE_MAP[player.value] > CARD_VALUE_MAP[third.value]) {
+} else if (CARD_VALUE_MAP[player.value] === CARD_VALUE_MAP[computer.value] && CARD_VALUE_MAP[player.value] > CARD_VALUE_MAP[third.value]) {
   text.innerText = "WAR!";
   if (playerDeck.NumberOfCards === 3) {
     playerDiscard.myPush(playerDeck.pop());
@@ -204,7 +204,7 @@ if (CARD_VALUE_MAP[player.value] > CARD_VALUE_MAP[computer.value] && CARD_VALUE_
   } 
 
   handleNormalWar([player, computer]);
-} else if (CARD_VALUE_MAP[player.value] == CARD_VALUE_MAP[third.value] && CARD_VALUE_MAP[player.value] > CARD_VALUE_MAP[computer.value]) {
+} else if (CARD_VALUE_MAP[player.value] === CARD_VALUE_MAP[third.value] && CARD_VALUE_MAP[player.value] > CARD_VALUE_MAP[computer.value]) {
   text.innerText = "WAR!";
   if (playerDeck.NumberOfCards === 3) {
     playerDiscard.myPush(playerDeck.pop());
@@ -247,39 +247,30 @@ if (CARD_VALUE_MAP[player.value] > CARD_VALUE_MAP[computer.value] && CARD_VALUE_
 
   War1vs3([player, third]);
 } 
-else if (CARD_VALUE_MAP[computer.value] == CARD_VALUE_MAP[third.value] && CARD_VALUE_MAP[computer.value] > CARD_VALUE_MAP[player.value]) {
+else if (CARD_VALUE_MAP[computer.value] === CARD_VALUE_MAP[third.value] && CARD_VALUE_MAP[computer.value] > CARD_VALUE_MAP[player.value]) {
   text.innerText = "WAR!";
-  if (playerDeck.NumberOfCards === 3) {
-    playerDiscard.myPush(playerDeck.pop());
-    playerDiscard.myPush(playerDeck.pop());
-  } else if (computerDeck.NumberOfCards === 3){
+   if (computerDeck.NumberOfCards === 3){
     computerDiscard.myPush(computerDeck.pop());
     computerDiscard.myPush(computerDeck.pop());
   } else if (ThirdDeck.NumberOfCards === 3){
     ThirdJunk.myPush(ThirdDeck.pop());
-    ThirdJunk.myPush(ThirdDeck.pop());}
-  // if the player1, computer, or player 3 has less than three cards then it will only take one card from their hand
-  else if (playerDeck.NumberOfCards === 2){
-    playerDiscard.myPush(playerDeck.pop());
-  }else if (computerDeck.NumberOfCards === 2){
+    ThirdJunk.myPush(ThirdDeck.pop());
+  }// if the player1, computer, or player 3 has less than three cards then it will only take one card from their hand
+  else if (computerDeck.NumberOfCards === 2){
     computerDiscard.myPush(computerDeck.pop());
   }else if (ThirdDeck.NumberOfCards === 2){
     ThirdJunk.myPush(playerDeck.pop());
   //if the player1, computer, or player 3 only has one card then it will go to comparewar
-  }else if (playerDeck.NumberOfCards === 1){
-    setTimeout(function() {
-      compareWar();
-    }, 500);
   }else if (computerDeck.NumberOfCards === 1){
       setTimeout(function() {
-        compareWar();
+        Compvs3War();
       }, 500);
-  }else {
-    //Adds three cards to the players discard pile
-    playerDiscard.myPush(playerDeck.pop());
-    playerDiscard.myPush(playerDeck.pop());
-    playerDiscard.myPush(playerDeck.pop());
-    
+  }else if (ThirdDeck.NumberOfCards === 1){
+      setTimeout(function() {
+        Compvs3War();
+      }, 500);}
+  else {
+   
     //Adds three cards to the computers discard pile
     computerDiscard.myPush(computerDeck.pop());
     computerDiscard.myPush(computerDeck.pop());
@@ -299,7 +290,7 @@ else if (CARD_VALUE_MAP[computer.value] == CARD_VALUE_MAP[third.value] && CARD_V
   } 
 
   Compvs3War([computer, third]);
-} else if (CARD_VALUE_MAP[player.value] == CARD_VALUE_MAP[computer.value] == CARD_VALUE_MAP[third.value]) {
+} else if (CARD_VALUE_MAP[player.value] === CARD_VALUE_MAP[computer.value] === CARD_VALUE_MAP[third.value]) {
   text.innerText = "WAR!";
   //if the player1, computer, or player3 has less than four cards then it will only take two cards from their hand
   if (playerDeck.NumberOfCards === 3) {
@@ -327,7 +318,11 @@ else if (CARD_VALUE_MAP[computer.value] == CARD_VALUE_MAP[third.value] && CARD_V
       setTimeout(function() {
         HandleThreeWayWar();
       }, 500);
-  } else {
+  }else if (ThirdDeck.NumberOfCards === 1){
+      setTimeout(function() {
+        HandleThreeWayWar();
+      }, 500);
+  }else {
     //Adds three cards to the players discard pile
     playerDiscard.myPush(playerDeck.pop());
     playerDiscard.myPush(playerDeck.pop());
@@ -443,7 +438,7 @@ function HandleThreeWayWar() {
       ThirdDeck.myPush(ThirdJunk.pop());
     }
     isGameOver(playerDeck, computerDeck, ThirdDeck);
-  }else if (CARD_VALUE_MAP[player.value] == CARD_VALUE_MAP[computer.value] == CARD_VALUE_MAP[third.value])  {
+  }else if (CARD_VALUE_MAP[player.value] === CARD_VALUE_MAP[computer.value] === CARD_VALUE_MAP[third.value])  {
     //if war happens again then it will go through the process again until it is over
     text.innerText = "War again!";
     if (playerDeck.NumberOfCards === 3) {
@@ -487,6 +482,7 @@ function HandleThreeWayWar() {
       ThirdJunk.myPush(ThirdDeck.pop());
       ThirdJunk.myPush(ThirdDeck.pop());
       ThirdJunk.myPush(ThirdDeck.pop());
+      
       updateDeckCount(); 
       
       // Delay the execution of compareWar() by 1 second
@@ -529,7 +525,6 @@ function handleNormalWar(){
     playerDeck.myPush(computerCard);
     playerDeck.myPush(computerCard);
     playerDeck.myPush(thirdCard);
-    playerDeck.myPush(thirdCard);
 
     //takes all cards that was played and is given to the player
     while (playerDiscard.NumberOfCards > 0) {
@@ -548,7 +543,7 @@ function handleNormalWar(){
     computerDeck.myPush(computerCard);
     computerDeck.myPush(computerCard);
     computerDeck.myPush(thirdCard);
-    computerDeck.myPush(thirdCard);
+    
 
     //takes all cards that was played and is given to the computer
     while (playerDiscard.NumberOfCards > 0) {
@@ -558,7 +553,7 @@ function handleNormalWar(){
       computerDeck.myPush(computerDiscard.pop());
     }
 
-  } else {
+  } else if(CARD_VALUE_MAP[playerCard.value] === CARD_VALUE_MAP[computerCard.value]){
     //Adds three cards to the players discard pile
     playerDiscard.myPush(playerDeck.pop());
     playerDiscard.myPush(playerDeck.pop());
@@ -602,10 +597,9 @@ function War1vs3(){
   if (CARD_VALUE_MAP[playerCard.value] > CARD_VALUE_MAP[thirdCard.value]) {
     text.innerText = "Player 1 wins WAR";
 
-     // Add cards to computer's deck
+     // Add cards to player 1's deck
      playerDeck.myPush(playerCard);
      playerDeck.myPush(playerCard);
-     playerDeck.myPush(computerCard);
      playerDeck.myPush(computerCard);
      playerDeck.myPush(thirdCard);
      playerDeck.myPush(thirdCard);
@@ -621,7 +615,7 @@ function War1vs3(){
   } else if (CARD_VALUE_MAP[thirdCard.value] > CARD_VALUE_MAP[playerCard.value]) {
     text.innerText = "The third player wins war!";
 
-    // Add cards to computer's deck
+    // Add cards to the third player's deck
     ThirdDeck.myPush(playerCard);
     ThirdDeck.myPush(playerCard);
     ThirdDeck.myPush(computerCard);
@@ -629,7 +623,7 @@ function War1vs3(){
     ThirdDeck.myPush(thirdCard);
     ThirdDeck.myPush(thirdCard);
 
-    //takes all cards that was played and is given to the computer
+    //takes all cards that was played and is given to the third player
     while (playerDiscard.NumberOfCards > 0) {
       ThirdDeck.myPush(playerDiscard.pop());
     }
@@ -637,7 +631,7 @@ function War1vs3(){
       ThirdDeck.myPush(ThirdJunk.pop());
     }
 
-  } else {
+  } else if(CARD_VALUE_MAP[playerCard.value] === CARD_VALUE_MAP[thirdCard.value]) {
     //Adds three cards to the players discard pile
     playerDiscard.myPush(playerDeck.pop());
     playerDiscard.myPush(playerDeck.pop());
@@ -681,13 +675,12 @@ function Compvs3War(){
 
     // Add cards to player's deck
     computerDeck.myPush(playerCard);
-    computerDeck.myPush(playerCard);
     computerDeck.myPush(computerCard);
     computerDeck.myPush(computerCard);
     computerDeck.myPush(thirdCard);
     computerDeck.myPush(thirdCard);
 
-    //takes all cards that was played and is given to the player
+    //takes all cards that was played and is given to the computer
     while (computerDiscard.NumberOfCards > 0) {
       computerDeck.myPush(computerDiscard.pop());
     }
@@ -700,13 +693,12 @@ function Compvs3War(){
 
     // Add cards to computer's deck
     ThirdDeck.myPush(playerCard);
-    ThirdDeck.myPush(playerCard);
     ThirdDeck.myPush(computerCard);
     ThirdDeck.myPush(computerCard);
     ThirdDeck.myPush(thirdCard);
     ThirdDeck.myPush(thirdCard);
 
-    //takes all cards that was played and is given to the computer
+    //takes all cards that was played and is given to the third player
     while (computerDiscard.NumberOfCards > 0) {
       ThirdDeck.myPush(computerDiscard.pop());
     }
@@ -714,8 +706,8 @@ function Compvs3War(){
       ThirdDeck.myPush(ThirdJunk.pop());
     }
 
-  } else {
-    //Adds three cards to the players discard pile
+  } else if(CARD_VALUE_MAP[thirdCard.value] === CARD_VALUE_MAP[computerCard.value]) {
+    //Adds three cards to the computers discard pile
     computerDiscard.myPush(computerDeck.pop());
     computerDiscard.myPush(computerDeck.pop());
     computerDiscard.myPush(computerDeck.pop());
@@ -735,6 +727,7 @@ function Compvs3War(){
   } 
   updateDeckCount();
   isGameOver(playerDeck, computerDeck, ThirdDeck);
+
 }
 
 
