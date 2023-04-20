@@ -130,8 +130,6 @@ function updateDeckCount(){
     playerDiscardDeckElement.innerText = playerDiscard.NumberOfCards;
     thirdDiscardDeckElement.innerText = ThirdJunk.NumberOfCards;
     thirdplayerElement.innerText = ThirdDeck.NumberOfCards;
-
-    
 }
 
 //console.log(player); // check the value of player
@@ -742,9 +740,9 @@ function updateScores() {
 }
 
 function isGameOver(player, computer, third) {
-  console.log("player cards:", player.NumberOfCards);
-  console.log("computer cards:", computer.NumberOfCards);
-  console.log("third player cards:", third.NumberOfCards);
+  //console.log("player cards:", player.NumberOfCards);
+  //console.log("computer cards:", computer.NumberOfCards);
+  //console.log("third player cards:", third.NumberOfCards);
 
   // Check if both computer and third players have no more cards
   if (computer.NumberOfCards === 0 && third.NumberOfCards === 0) {
@@ -760,6 +758,13 @@ function isGameOver(player, computer, third) {
     updateScores();
     text.innerText = "The computer wins";
     computerScore++; // Update computer score
+    stop = true;
+  } // Check if player runs out of cards
+  else if (player.NumberOfCards === 0 && computer.NumberOfCards === 0) {
+    console.log("Third player wins");
+    updateScores();
+    text.innerText = "The third player wins";
+    thirdScore++; // Update computer score
     stop = true;
   } 
   // Check if computer runs out of cards
@@ -796,8 +801,8 @@ function isGameOver(player, computer, third) {
   } else if (thirdCardSlot.innerHTML === "" && computerCardSlot.innerHTML === ""){
     console.log("third player wins");
     updateScores();
-    text.innerText = "The player wins";
-    playerScore++; // Update player score
+    text.innerText = "The third player wins";
+    thirdScore++; // Update player score
     stop = true;
   } else if (playerCardSlot.innerHTML === "" && thirdCardSlot.innerHTML === ""){
     console.log("first player wins");
