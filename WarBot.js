@@ -134,16 +134,16 @@ function isRoundWinner(player, computer) {
       computerDiscard.myPush(computerDeck.pop());
       computerDiscard.myPush(computerDeck.pop());
     // if the player of computer has less than three cards then it will only take one card from their hand
-    } else if (playerDiscard.myPush.NumberOfCards === 2){
+    } else if (playerDeck.NumberOfCards === 2){
       playerDiscard.myPush(playerDeck.pop());
     }else if (computerDiscard.myPush.NumberOfCards === 2){
       computerDiscard.myPush(playerDeck.pop());
     //if the player or computer only has one card then it will go to comparewar
-    }else if (playerDiscard.myPush.NumberOfCards === 1){
+    }else if (playerDeck.NumberOfCards === 1){
       setTimeout(function() {
         compareWar();
       }, 1000);
-    }else if (computerDiscard.myPush.NumberOfCards === 1){
+    }else if (computerDeck.NumberOfCards === 1){
         setTimeout(function() {
           compareWar();
         }, 1000);
@@ -227,15 +227,15 @@ function compareWar() {
     } else if (computerDeck.NumberOfCards === 3){
       computerDiscard.myPush(computerDeck.pop());
       computerDiscard.myPush(computerDeck.pop());
-    } else if (playerDiscard.myPush.NumberOfCards === 2){
+    } else if (playerDeck.NumberOfCards === 2){
       playerDiscard.myPush(playerDeck.pop());
-    }else if (computerDiscard.myPush.NumberOfCards === 2){
+    }else if (computerDeck.NumberOfCards === 2){
       computerDiscard.myPush(playerDeck.pop());
-    }else if (playerDiscard.myPush.NumberOfCards === 1){
+    }else if (playerDeck.NumberOfCards === 1){
       setTimeout(function() {
         compareWar();
       }, 1000);
-    }else if (computerDiscard.myPush.NumberOfCards === 1){
+    }else if (computerDeck.NumberOfCards === 1){
         setTimeout(function() {
           compareWar();
         }, 1000);
