@@ -92,24 +92,34 @@ function cleanBeforeRound(){
     updateDeckCount();
 }
 
-//changes the cards within the round
 function flipCards() {
-    inRound = true;
+  // Check if any player has zero cards
+  if (playerDeck.NumberOfCards === 0 || computerDeck.NumberOfCards === 0 || ThirdDeck.NumberOfCards === 0) {
+    isGameOver(playerDeck, computerDeck, ThirdDeck);
+  }
 
-    updateDeckCount();
+  inRound = true;
+  updateDeckCount();
 
-    //gives you the first card
-    const playerCard = playerDeck.pop();
-    const computerCard = computerDeck.pop();
-    const thirdCard = ThirdDeck.pop();
-    
-    //renders the cards
+  const playerCard = playerDeck.pop();
+  const computerCard = computerDeck.pop();
+  const thirdCard = ThirdDeck.pop();
+
+  if (playerCard !== undefined) {
     playerCardSlot.appendChild(playerCard.getHTML());
+  }
+  
+  if (computerCard !== undefined) {
     computerCardSlot.appendChild(computerCard.getHTML());
+  }
+
+  if (thirdCard !== undefined) {
     thirdCardSlot.appendChild(thirdCard.getHTML());
-    
-    isRoundWinner(playerCard, computerCard, thirdCard);
+  }
+
+  isRoundWinner(playerCard, computerCard, thirdCard);
 }
+
 
 //updates the deck count
 function updateDeckCount(){
@@ -120,6 +130,8 @@ function updateDeckCount(){
     playerDiscardDeckElement.innerText = playerDiscard.NumberOfCards;
     thirdDiscardDeckElement.innerText = ThirdJunk.NumberOfCards;
     thirdplayerElement.innerText = ThirdDeck.NumberOfCards;
+
+    
 }
 
 //console.log(player); // check the value of player
@@ -127,6 +139,11 @@ function updateDeckCount(){
 
 //Will determine who wins, will detemine which card is worth more
 function isRoundWinner(player, computer, third) {
+  if (playerDeck.NumberOfCards === 0 || computerDeck.NumberOfCards === 0 || ThirdDeck.NumberOfCards === 0) {
+    isGameOver(playerDeck, computerDeck, ThirdDeck);
+    return; // exit the function
+  }
+  
 if (CARD_VALUE_MAP[player.value] > CARD_VALUE_MAP[computer.value] && CARD_VALUE_MAP[player.value] > CARD_VALUE_MAP[third.value]) {
   text.innerText = "Player 1 Wins";
   //It pushes the cards into the player 1s hand
@@ -336,7 +353,8 @@ else if (CARD_VALUE_MAP[computer.value] == CARD_VALUE_MAP[third.value] && CARD_V
 }
 updateDeckCount();
 isGameOver(playerDeck, computerDeck, ThirdDeck); 
-}
+  }
+
 
 
 function HandleThreeWayWar() {
@@ -349,6 +367,10 @@ function HandleThreeWayWar() {
   const computerCard = computerDeck.pop();
   const thirdCard = ThirdDeck.pop();
 
+   // Check if any player has zero cards
+   if (playerDeck.NumberOfCards === 0 || computerDeck.NumberOfCards === 0 || ThirdDeck.NumberOfCards === 0) {
+    isGameOver(playerDeck, computerDeck, ThirdDeck);
+  }
   // Render the cards on the screen
   playerCardSlot.appendChild(playerCard.getHTML());
   computerCardSlot.appendChild(computerCard.getHTML());
@@ -376,7 +398,7 @@ function HandleThreeWayWar() {
     while (ThirdJunk.NumberOfCards > 0){
       playerDeck.myPush(ThirdJunk.pop());
     }
-
+    isGameOver(playerDeck, computerDeck, ThirdDeck);
   } else if (CARD_VALUE_MAP[computerCard.value] > CARD_VALUE_MAP[playerCard.value] && CARD_VALUE_MAP[computerCard.value] > CARD_VALUE_MAP[thirdCard.value]) {
     text.innerText = "The comp wins war!";
 
@@ -398,7 +420,7 @@ function HandleThreeWayWar() {
     while (ThirdJunk.NumberOfCards > 0){
       computerDeck.myPush(ThirdJunk.pop());
     }
-
+    isGameOver(playerDeck, computerDeck, ThirdDeck);
   } else if (CARD_VALUE_MAP[thirdCard.value] > CARD_VALUE_MAP[playerCard.value] && CARD_VALUE_MAP[thirdCard.value] > CARD_VALUE_MAP[computerCard.value]) {
     text.innerText = "The third player wins war!";
 
@@ -420,7 +442,7 @@ function HandleThreeWayWar() {
     while (ThirdJunk.NumberOfCards > 0){
       ThirdDeck.myPush(ThirdJunk.pop());
     }
-
+    isGameOver(playerDeck, computerDeck, ThirdDeck);
   }else if (CARD_VALUE_MAP[player.value] == CARD_VALUE_MAP[computer.value] == CARD_VALUE_MAP[third.value])  {
     //if war happens again then it will go through the process again until it is over
     text.innerText = "War again!";
@@ -430,19 +452,28 @@ function HandleThreeWayWar() {
     } else if (computerDeck.NumberOfCards === 3){
       computerDiscard.myPush(computerDeck.pop());
       computerDiscard.myPush(computerDeck.pop());
-    } else if (playerDiscard.myPush.NumberOfCards === 2){
+    } else if (ThirdDeck.NumberOfCards === 3){
+      ThirdJunk.myPush(ThirdDeck.pop());
+      ThirdJunk.myPush(ThirdDeck.pop());
+    } else if (playerDeck.NumberOfCards === 2){
       playerDiscard.myPush(playerDeck.pop());
-    }else if (computerDiscard.myPush.NumberOfCards === 2){
+    } else if (computerDeck.NumberOfCards === 2){
       computerDiscard.myPush(playerDeck.pop());
-    }else if (playerDiscard.myPush.NumberOfCards === 1){
-      setTimeout(function() {
-        compareWar();
-      }, 500);
-    }else if (computerDiscard.myPush.NumberOfCards === 1){
+    } else if (ThirdDeck.NumberOfCards === 2){
+      ThirdJunk.myPush(ThirdDeck.pop());
+    } else if (playerDeck.NumberOfCards === 1){
         setTimeout(function() {
-          compareWar();
+          HandleThreeWayWar();
         }, 500);
-    }else {
+    } else if (computerDeck.NumberOfCards === 1){
+        setTimeout(function() {
+          HandleThreeWayWar();
+        }, 500);
+    }else if (ThirdDeck.NumberOfCards === 1){
+        setTimeout(function() {
+          HandleThreeWayWar();
+        }, 500);
+  }else {
       //Adds three cards to the players discard pile
       playerDiscard.myPush(playerDeck.pop());
       playerDiscard.myPush(playerDeck.pop());
@@ -453,13 +484,17 @@ function HandleThreeWayWar() {
       computerDiscard.myPush(computerDeck.pop());
       computerDiscard.myPush(computerDeck.pop());
       
+      ThirdJunk.myPush(ThirdDeck.pop());
+      ThirdJunk.myPush(ThirdDeck.pop());
+      ThirdJunk.myPush(ThirdDeck.pop());
       updateDeckCount(); 
       
       // Delay the execution of compareWar() by 1 second
       setTimeout(function() {
-        compareWar();
+        HandleThreeWayWar();
       }, 500);
-    } 
+      isGameOver(playerDeck, computerDeck, ThirdDeck);
+    }
 
   // Update the deck count and check if the game is over
   updateDeckCount();
@@ -476,8 +511,14 @@ function handleNormalWar(){
   const computerCard = computerDeck.pop();
   const thirdCard = ThirdDeck.pop();
 
-  playerCardSlot.appendChild(playerCard.getHTML());
+   // Check if any player has zero cards
+   if (playerDeck.NumberOfCards === 0 || computerDeck.NumberOfCards === 0) {
+    isGameOver(playerDeck, computerDeck, ThirdDeck);
+  }
+  
   computerCardSlot.appendChild(computerCard.getHTML());
+  playerCardSlot.appendChild(playerCard.getHTML());
+  
 
   if (CARD_VALUE_MAP[playerCard.value] > CARD_VALUE_MAP[computerCard.value]) {
     text.innerText = "Player 1 wins WAR";
@@ -497,7 +538,7 @@ function handleNormalWar(){
     while (computerDiscard.NumberOfCards > 0) {
       playerDeck.myPush(computerDiscard.pop());
     }
-
+    isGameOver(playerDeck, computerDeck, ThirdDeck);
   } else if (CARD_VALUE_MAP[computerCard.value] > CARD_VALUE_MAP[playerCard.value]) {
     text.innerText = "The comp wins war!";
 
@@ -534,20 +575,29 @@ function handleNormalWar(){
     setTimeout(function() {
       handleNormalWar();
     }, 500);
+    isGameOver(playerDeck, computerDeck, ThirdDeck);
   } 
+  updateDeckCount();
+  isGameOver(playerDeck, computerDeck, ThirdDeck);
 }
 
 function War1vs3(){
   inRound = true;
   updateDeckCount();
 
-  // Get the next card for each player
+   // Get the next card for each player
   const playerCard = playerDeck.pop();
   const thirdCard = ThirdDeck.pop();
   const computerCard = computerDeck.pop();
 
+   // Check if any player has zero cards
+   if (playerDeck.NumberOfCards === 0 || ThirdDeck.NumberOfCards === 0) {
+    isGameOver(playerDeck, computerDeck, ThirdDeck);
+  }
+
   playerCardSlot.appendChild(playerCard.getHTML());
   thirdCardSlot.appendChild(thirdCard.getHTML());
+  
 
   if (CARD_VALUE_MAP[playerCard.value] > CARD_VALUE_MAP[thirdCard.value]) {
     text.innerText = "Player 1 wins WAR";
@@ -602,9 +652,11 @@ function War1vs3(){
     
     // Delay the execution of compareWar() by 1 second
     setTimeout(function() {
-      Compvs3War();
+      War1vs3();
     }, 500);
   } 
+  updateDeckCount();
+  isGameOver(playerDeck, computerDeck, ThirdDeck);
 }
 
 function Compvs3War(){
@@ -616,9 +668,13 @@ function Compvs3War(){
   const thirdCard = ThirdDeck.pop();
   const playerCard = playerDeck.pop();
 
-
+   // Check if any player has zero cards
+   if (computerDeck.NumberOfCards === 0 || ThirdDeck.NumberOfCards === 0) {
+    isGameOver(playerDeck, computerDeck, ThirdDeck);
+  }
   computerCardSlot.appendChild(computerCard.getHTML());
   thirdCardSlot.appendChild(thirdCard.getHTML());
+  
 
   if (CARD_VALUE_MAP[computerCard.value] > CARD_VALUE_MAP[thirdCard.value]) {
     text.innerText = "computer wins war";
@@ -675,7 +731,10 @@ function Compvs3War(){
     setTimeout(function() {
       Compvs3War();
     }, 500);
+    isGameOver(playerDeck, computerDeck, ThirdDeck);
   } 
+  updateDeckCount();
+  isGameOver(playerDeck, computerDeck, ThirdDeck);
 }
 
 
@@ -689,37 +748,76 @@ function updateScores() {
   scores.innerText = `Comp: ${computerScore} \n Player1: ${playerScore} \n Player3: ${thirdScore}`;
 }
 
-// The game will be over when someone's cards hit zero
 function isGameOver(player, computer, third) {
-  // If player runs out of cards then this will display
-  if (player.NumberOfCards === 0 && third.NumberOfCards === 0) {
-    text.innerText = "The computer wins";
-    computerScore++; // Update computer score
-    stop = true;
-  } else if (computer.NumberOfCards === 0){
-    text.innerText = "The Computer is out of cards";
-    computerCardSlot.innerHTML = "";
-    inRound = true;
-  }else if (player.NumberOfCards === 0){
-    text.innerText = "Player 1 is out of cards";
-    playerCardSlot.innerHTML = "";
-    inRound = true;
-  }else if (third.NumberOfCards === 0){
-    text.innerText = "The third player is out of cards";
-    thirdCardSlot.innerHTML = "";
-    inRound = true;
-  }else if (computer.NumberOfCards === 0 && third.NumberOfCards === 0) {
+  console.log("player cards:", player.NumberOfCards);
+  console.log("computer cards:", computer.NumberOfCards);
+  console.log("third player cards:", third.NumberOfCards);
+
+  // Check if both computer and third players have no more cards
+  if (computer.NumberOfCards === 0 && third.NumberOfCards === 0) {
+    console.log("player wins");
+    updateScores();
     text.innerText = "The player wins";
     playerScore++; // Update player score
     stop = true;
-  } else if (computer.NumberOfCards === 0 && player.NumberOfCards === 0) {
+  } 
+  // Check if player runs out of cards
+  else if (player.NumberOfCards === 0 && third.NumberOfCards === 0) {
+    console.log("computer wins");
+    updateScores();
+    text.innerText = "The computer wins";
+    computerScore++; // Update computer score
+    stop = true;
+  } 
+  // Check if computer runs out of cards
+  else if (computer.NumberOfCards === 0) {
+    updateScores();
+    console.log("computer out of cards");
+    text.innerText = "The Computer is out of cards";
+    computerCardSlot.innerHTML = "";
+    inRound = true;
+  }
+  // Check if third player runs out of cards
+  else if (third.NumberOfCards === 0) {
+    updateScores();
+    console.log("third player out of cards");
+    text.innerText = "The third player is out of cards";
+    thirdCardSlot.innerHTML = "";
+    inRound = true;
+  } 
+  // Check if player runs out of cards
+  else if (player.NumberOfCards === 0) {
+    updateScores();
+    console.log("player out of cards");
+    text.innerText = "Player 1 is out of cards";
+    playerCardSlot.innerHTML = "";
+    inRound = true;
+  } 
+  // Check if the cards in a round is empty
+  else if (computerCardSlot.innerHTML === "" && playerCardSlot.innerHTML === ""){
+    console.log("third player wins");
+    updateScores();
     text.innerText = "The third player wins";
     thirdScore++; // Update player score
     stop = true;
-  // Update scores on the screen
+  } else if (thirdCardSlot.innerHTML === "" && computerCardSlot.innerHTML === ""){
+    console.log("third player wins");
+    updateScores();
+    text.innerText = "The player wins";
+    playerScore++; // Update player score
+    stop = true;
+  } else if (playerCardSlot.innerHTML === "" && thirdCardSlot.innerHTML === ""){
+    console.log("first player wins");
+    updateScores();
+    text.innerText = "The player wins";
+    playerScore++; // Update player score
+    stop = true;
   }
   updateScores();
 }
+
+
+
 
 
 
