@@ -31,7 +31,7 @@ const computerDiscardDeckElement = document.querySelector('.computer-Junk');
 const thirdDiscardDeckElement = document.querySelector('.third-Junk');
 const scores = document.querySelector('.scoreboard');
 
-let playerDeck, ThirdDeck,computerDeck, inRound, stop, playerDiscard, computerDiscard, ThirdJunk;
+let playerDeck, ThirdDeck, computerDeck, inRound, stop, playerDiscard, computerDiscard, ThirdJunk;
 
 //if you click anywhere on the screen the function will run
 document.addEventListener('click', () => {
@@ -54,30 +54,45 @@ document.addEventListener('click', () => {
 startGame();
 
 function startGame(){
-    const deck = new Deck();
-    deck.shuffle();
-    
-    //splits it into equal pile of cards
-    const deckMidpoint = Math.ceil(deck.NumberOfCards / 3);
-    
-    //the players deck - This splits the cards
-    playerDeck = new Deck(deck.cards.slice(0, deckMidpoint));
-    
-    ThirdDeck = new Deck(deck.cards.slice(deckMidpoint, deckMidpoint * 2));
-    //the computers deck
-    computerDeck = new Deck(deck.cards.slice(deckMidpoint * 2 + 1, 52));
+  const deck = new Deck();
+  deck.shuffle();
 
-    
-    ThirdJunk = new Deck([]);
-    playerDiscard = new Deck([]);
-    computerDiscard = new Deck([]);
+  // Ask the player for their preferred deck color
+  const playerDeckColor = prompt("player 1 chose which color you want");
+  const thirdDeckColor = prompt("player 3 choose which color you want");
+  const compDeckColor = prompt("Choose a color for the Computer");
 
-    inRound = false;
-    stop = false;
-    
-    //calls the function
-    cleanBeforeRound();
+  //changes the deck and discard pile the color you chose
+  computerDeckElement.style.backgroundColor = compDeckColor;
+  computerDiscardDeckElement.style.backgroundColor = compDeckColor;
+  thirdDiscardDeckElement.style.backgroundColor = thirdDeckColor;  
+  thirdplayerElement.style.backgroundColor = thirdDeckColor;
+  playerDeckElement.style.backgroundColor = playerDeckColor;
+  playerDiscardDeckElement.style.backgroundColor = playerDeckColor;
+
+  //splits it into equal pile of cards
+  const deckMidpoint = Math.ceil(deck.NumberOfCards / 3);
+
+  //the players deck - This splits the cards
+  playerDeck = new Deck(deck.cards.slice(0, deckMidpoint));
+
+  ThirdDeck = new Deck(deck.cards.slice(deckMidpoint, deckMidpoint * 2));
+  //the computers deck
+  computerDeck = new Deck(deck.cards.slice(deckMidpoint * 2 + 1, 52));
+
+
+  ThirdJunk = new Deck([]);
+  playerDiscard = new Deck([]);
+  computerDiscard = new Deck([]);
+
+  inRound = false;
+  stop = false;
+
+  //calls the function
+  cleanBeforeRound();
 }
+
+
 
 //Creates a default state
 function cleanBeforeRound(){

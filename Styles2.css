@@ -2,6 +2,31 @@
     box-sizing: border-box;
 }
 
+@media only screen and (max-width: 600px) {
+    /* Styles for screens smaller than 600px (e.g. smartphones) */
+    .body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .deck {
+      margin: 10px;
+      width: 90%;
+    }
+  
+    .card {
+      width: 50px;
+      height: 80px;
+    }
+  
+    /* Hide the player and computer hands by default */
+    .player-deck, .computer-deck {
+      display: none;
+    }
+  }
+  
+
     
 body {
     margin: 0;
