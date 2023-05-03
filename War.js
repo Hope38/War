@@ -52,6 +52,16 @@ startGame();
 function startGame(){
     const deck = new Deck();
     deck.shuffle();
+  
+  // Ask the player for their preferred deck color
+  const playerDeckColor = prompt("player 1 chose which color you want");
+  const compDeckColor = prompt("Choose a color for the Computer");
+
+  //changes the deck and discard pile the color you chose
+  computerDeckElement.style.backgroundColor = compDeckColor;
+  computerDiscardDeckElement.style.backgroundColor = compDeckColor;
+  playerDeckElement.style.backgroundColor = playerDeckColor;
+  playerDiscardDeckElement.style.backgroundColor = playerDeckColor;
     
     //splits it into equal pile of cards
     const deckMidpoint = Math.ceil(deck.NumberOfCards / 2);
